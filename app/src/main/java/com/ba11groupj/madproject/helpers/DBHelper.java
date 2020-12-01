@@ -217,11 +217,6 @@ public class DBHelper extends SQLiteOpenHelper {
         return null;
     }
 
-    public void clearTransactionHistory() {
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("delete from " + TABLE_TRANSACTIONS);
-    }
-
     public void updateItemStock(Item item, int newStock) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
@@ -240,5 +235,10 @@ public class DBHelper extends SQLiteOpenHelper {
 
         cv.put(USER_BALANCE, newBalance);
         db.update(TABLE_USERS, cv, USER_ID + " = ?", new String[]{userId});
+    }
+
+    public void clearTransactionHistory() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("delete from " + TABLE_TRANSACTIONS);
     }
 }
