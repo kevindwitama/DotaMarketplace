@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activities.TopUpActivity"
+    android:orientation="vertical"
+    android:background="@android:color/white"
+    android:padding="15dp"
+    >
+
+    <!-- Amount of Current Balance -->
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="14dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            >
+
+            <TextView
+                android:id="@+id/judulBalance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="30sp"
+                android:paddingLeft="10sp"
+                android:fontFamily="@font/montserratbold"
+                android:text="Your Balance"
+                android:textColor="#333333"
+                android:textStyle="bold"
+                />
+
+            <TextView
+                android:id="@+id/txtVwBalance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Show Balance"
+                android:fontFamily="@font/ptsansregular"
+                android:textColor="#4B7902"
+                android:textSize="24sp"
+                android:layout_gravity="left"
+                android:paddingLeft="10sp"
+                android:textStyle="bold"
+                android:layout_marginTop="10dp"
+                />
+
+            <!-- Garis Pemisah -->
+            <View android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="#AAAAAA"
+                android:layout_marginTop="13dp"
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Explanation of Top Up -->
+    <LinearLayout
+        android:layout_marginTop="50dp"
+        android:orientation="horizontal"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="14dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            >
+
+            <TextView
+                android:id="@+id/penjelasanSatu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="22sp"
+                android:paddingLeft="10sp"
+                android:fontFamily="@font/ralewaybold"
+                android:text="Need Amount of Balance?"
+                android:textColor="#333333"
+                android:textStyle="bold"
+                />
+
+            <TextView
+                android:id="@+id/penjelasanDua"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Please, fill this form!"
+                android:fontFamily="@font/ralewaybold"
+                android:textColor="#333333"
+                android:textSize="24sp"
+                android:layout_gravity="left"
+                android:paddingLeft="10sp"
+                android:textStyle="bold"
+                android:layout_marginTop="10dp"
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Input Amount of Top-Up -->
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="14dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:padding="10dp"
+        >
+
+        <EditText
+            android:id="@+id/txtAddBalance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Amount of Balance"
+            android:paddingLeft="10dp"
+            android:background="#D7D7D7"
+            android:textSize="20sp"
+            android:textColor="@android:color/black"
+            android:textStyle="normal"
+            />
+
+    </LinearLayout>
+
+    <!-- Input Account Password -->
+    <LinearLayout
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="14dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:padding="10dp"
+        >
+
+        <EditText
+            android:id="@+id/txtPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Account Password"
+            android:paddingLeft="10dp"
+            android:background="#D7D7D7"
+            android:textSize="20sp"
+            android:textColor="@android:color/black"
+            android:textStyle="normal"
+            />
+    </LinearLayout>
+
+    <!-- This button will be validate -->
+    <Button
+        android:id="@+id/btnAddBalance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/button_topup"
+        android:text="ADD BALANCE"
+        android:textColor="#FFFFFF"
+        android:fontFamily="@font/ralewaybold"
+        android:textStyle="normal"
+        android:gravity="center"
+        android:layout_marginStart="80dp"
+        android:layout_marginEnd="80dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:textSize="20sp"
+        android:layout_marginRight="20dp"
+        />
+
+</LinearLayout>

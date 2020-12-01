@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activities.MainActivity"
+    android:background="@color/colorAccent"
+    android:orientation="vertical"
+    >
+
+    <!-- Header 1 -->
+    <LinearLayout
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="14dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            >
+
+            <TextView
+                android:id="@+id/WelcomeBack"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="25sp"
+                android:paddingLeft="10sp"
+                android:fontFamily="@font/opensansregular"
+                android:text="Welcome Back,"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                />
+
+            <TextView
+                android:id="@+id/txtViewUsername"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Username"
+                android:fontFamily="@font/ptsansregular"
+                android:textColor="#81D3F8"
+                android:textSize="24sp"
+                android:layout_gravity="left"
+                android:paddingLeft="10sp"
+                android:textStyle="bold"
+                />
+
+            <!-- Garis Pemisah  1 -->
+            <View android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="#AAAAAA" />
+        </LinearLayout>
+
+        <!-- Header 2 -->
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+
+            >
+            <TextView
+                android:id="@+id/txtViewBalance"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="BALANCE"
+                android:textColor="#03C775"
+                android:textSize="25sp"
+                android:gravity="center"
+                android:textAlignment="gravity"
+                android:fontFamily="@font/montserratbold"
+                android:paddingTop="20sp"
+                />
+
+            <!-- Garis Pemisah  2 -->
+            <View android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="#AAAAAA"
+                android:layout_marginTop="9dp"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- Notes: Di 'Our Item', ada iklan yang saya tambahin contohnya adalah si Zeus-->
+    <!-- Judul Items -->
+
+    <RelativeLayout
+        android:padding="10dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <!-- LinearLayout
+             android:layout_width="match_parent"
+             android:layout_weight="0"
+             android:layout_height="wrap_content"
+             android:orientation="vertical"
+             android:paddingTop="20dp"
+             > -->
+
+        <ImageView
+            android:id="@+id/zeusImage"
+            android:layout_width="150dp"
+            android:layout_height="100dp"
+            android:src="@drawable/c_zeus"
+            android:layout_marginTop="5dp"
+            />
+
+        <TextView
+            android:id="@+id/nameItems"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Our Items"
+            android:textColor="#027DB4"
+            android:fontFamily="@font/ptsansregular"
+            android:textStyle="bold"
+            android:textSize="29sp"
+            android:layout_toRightOf="@id/zeusImage"
+            android:paddingLeft="30sp"
+            />
+
+        <TextView
+            android:id="@+id/UpcomingItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="UPCOMING ITEMS"
+            android:textColor="#8080FF"
+            android:fontFamily="@font/ptsansregular"
+            android:textStyle="bold"
+            android:textSize="24sp"
+            android:layout_marginTop="10dp"
+            android:layout_below="@id/nameItems"
+            android:layout_toRightOf="@id/zeusImage"
+            />
+
+        <TextView
+            android:id="@+id/zeusItems"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Zeus - "
+            android:textColor="#8080FF"
+            android:fontFamily="@font/ptsansregular"
+            android:textStyle="bold"
+            android:textSize="24sp"
+            android:layout_marginTop="5dp"
+            android:layout_below="@id/UpcomingItem"
+            android:layout_toRightOf="@id/zeusImage"
+            />
+
+
+    </RelativeLayout>
+
+    <!-- List Item -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="20dp"
+        android:background="#008080"
+        >
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_item"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+    </RelativeLayout>
+
+
+</LinearLayout>
+
+

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activities.HistoryActivity"
+    android:orientation="vertical"
+    android:background="@color/colorAccent"
+    >
+
+    <LinearLayout
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="14dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            >
+
+
+            <TextView
+                android:id="@+id/judulTransaction"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:fontFamily="@font/opensansregular"
+                android:text="Your Transcation History"
+                android:textColor="#FFFFFF"
+                android:layout_marginLeft="10sp"
+                android:textSize="25sp"
+                android:layout_marginTop="30sp"
+                />
+
+            <TextView
+                android:id="@+id/judulPertanyaan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Do you want to delete all this history?"
+                android:textColor="#00BFBF"
+                android:layout_marginLeft="10sp"
+                android:textSize="20sp"
+                android:layout_marginTop="20sp"
+                android:fontFamily="@font/opensansregular"
+                />
+
+            <Button
+                android:id="@+id/btnClearHistory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="150dp"
+                android:background="#7B4D12"
+                android:fontFamily="@font/ralewaybold"
+                android:gravity="center"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:text="CLEAR ALL HISTORY"
+                android:textColor="#FFFFFF"
+                android:textStyle="normal" />
+
+            <!--  <TextView
+                android:id="@+id/atau"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="OR"
+                android:textSize="25sp"
+                android:layout_marginLeft="90sp"
+                android:textColor="#F2F2F2"
+                android:fontFamily="@font/opensansregular"
+                android:layout_marginTop="20sp"
+                />
+
+                 <Button
+                android:id="@+id/buttonBackMain"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#F2F2F2"
+                android:text="BACK TO HOME"
+                android:layout_marginTop="20sp"
+                android:background="@drawable/buttonbackmain"
+                android:layout_marginLeft="30sp"
+                android:layout_marginRight="150sp"
+                /> -->
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- List Item Transcation History
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="50dp"
+        android:background="#008080"
+        android:layout_marginBottom="200dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        >
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/listHistory"
+            />
+
+    </RelativeLayout> -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="20dp"
+        android:background="#008080"
+        android:orientation="vertical">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_item"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -1,0 +1,2 @@
+include ':app'
+rootProject.name = "Project MAD BA11 Group J"

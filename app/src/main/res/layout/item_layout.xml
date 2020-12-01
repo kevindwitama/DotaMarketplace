@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorAccent"
+    >
+
+    <!-- Main Form terdapat list view dimana jika user ingin melihat salah satu item
+        maka akan muncul detail list itemnya
+   -->
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:paddingTop="30dp"
+            android:padding="20dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#008080"
+            >
+
+            <!-- Gambar Item (Item Image) -->
+            <ImageView
+                android:id="@+id/imgGameBuy"
+                android:layout_width="130dp"
+                android:layout_height="129dp"
+                android:src="@drawable/gaming"
+                android:layout_marginTop="2dp"
+                android:scaleType="centerCrop"
+                />
+
+            <!-- Nama Item (Name of Item) -->
+            <TextView
+                android:id="@+id/txtItemName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Item Name"
+                android:textColor="#F59A23"
+                android:fontFamily="@font/montserratbold"
+                android:textStyle="bold"
+                android:textSize="24sp"
+                android:layout_toRightOf="@id/imgGameBuy"
+                android:paddingLeft="10sp"
+                />
+
+            <!-- Stok Item (Stock of Item) -->
+            <TextView
+                android:id="@+id/txtItemStock"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Item Stock"
+                android:textColor="#FFFFFF"
+                android:fontFamily="@font/montserratbold"
+                android:textStyle="bold"
+                android:textSize="24sp"
+                android:layout_marginTop="5dp"
+                android:layout_below="@id/txtItemName"
+                android:layout_toRightOf="@id/imgGameBuy"
+                android:paddingLeft="10sp"
+                />
+
+            <!-- Harga Item (Price of Item) -->
+            <TextView
+                android:id="@+id/txtItemPrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Item Price"
+                android:textColor="#CAF982"
+                android:fontFamily="@font/montserratbold"
+                android:textStyle="bold"
+                android:textSize="24sp"
+                android:layout_marginTop="5dp"
+                android:layout_below="@id/txtItemStock"
+                android:layout_toRightOf="@id/imgGameBuy"
+                android:paddingLeft="10sp"
+                />
+
+            <!-- Button Buy-->
+            <Button
+                android:id="@+id/btnBuyItem"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txtItemPrice"
+                android:layout_marginTop="15dp"
+                android:layout_toRightOf="@id/imgGameBuy"
+                android:background="@drawable/button_buy_list"
+                android:fontFamily="@font/ralewaybold"
+                android:text="BUY"
+                android:textColor="#FFFFFF"
+                android:textSize="15sp" />
+
+        </RelativeLayout>
+    </ScrollView>
+</LinearLayout>
