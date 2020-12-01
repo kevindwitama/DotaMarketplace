@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ba11groupj.madproject.R;
 import com.ba11groupj.madproject.helpers.DBHelper;
+import com.ba11groupj.madproject.helpers.DataHelper;
 import com.ba11groupj.madproject.models.User;
 import com.ba11groupj.madproject.ui.adapters.TransAdapter;
 
@@ -58,6 +59,7 @@ public class HistoryActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 database.clearTransactionHistory();
+                DataHelper.arrTrans.clear();
                 myAdapter.notifyDataSetChanged();
             }
         });

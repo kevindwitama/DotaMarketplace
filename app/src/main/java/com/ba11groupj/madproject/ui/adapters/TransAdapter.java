@@ -1,7 +1,6 @@
 package com.ba11groupj.madproject.ui.adapters;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ba11groupj.madproject.R;
 import com.ba11groupj.madproject.helpers.DBHelper;
+import com.ba11groupj.madproject.helpers.DataHelper;
 import com.ba11groupj.madproject.models.Transaction;
 import com.ba11groupj.madproject.models.User;
 
@@ -27,7 +27,8 @@ public class TransAdapter extends RecyclerView.Adapter<TransViewHolder> {
     public TransAdapter(Context mCtx, User user) {
         this.mCtx = mCtx;
         database = new DBHelper(mCtx);
-        arrTrans = database.fetchTransactions();
+        DataHelper.arrTrans = database.fetchTransactions(); // perlu data helper biar bisa auto clear
+        arrTrans = DataHelper.arrTrans;
         this.user = user;
     }
 
@@ -51,7 +52,6 @@ public class TransAdapter extends RecyclerView.Adapter<TransViewHolder> {
         float itemPrice = database.getItem(trans.getItemId()).getPrice();
 
         minBal = itemPrice * itemQty;
-        Log.d("kontol", transDate + itemName + itemQty + minBal);
 
         holder.lblTransDate.setText(transDate);
         holder.lblItemName.setText(itemName);
@@ -63,4 +63,5 @@ public class TransAdapter extends RecyclerView.Adapter<TransViewHolder> {
     public int getItemCount() {
         return arrTrans.size();
     }
+
 }
