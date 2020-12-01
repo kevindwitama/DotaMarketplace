@@ -1,7 +1,9 @@
 package com.ba11groupj.madproject.ui.activities;
 
+import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
+import android.telephony.SmsManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -9,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import com.ba11groupj.madproject.R;
 import com.ba11groupj.madproject.helpers.DBHelper;
@@ -70,6 +73,7 @@ public class BuyItemActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buy_item);
 
+        requestSmsPermission();
         initData();
         init();
 
@@ -86,6 +90,7 @@ public class BuyItemActivity extends AppCompatActivity  {
             }
         });
 
+        // fungsi utk button checkout
         btnCheckout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -108,7 +113,10 @@ public class BuyItemActivity extends AppCompatActivity  {
                         database.updateItemStock(item, itemStock - itemQty);
                         database.updateUserBalance(user, userBalance - (itemPrice * itemQty));
 
-                        Toast.makeText(BuyItemActivity.this, "Transaction success!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(BuyItemActivity.this, "Please wait...", Toast.LENGTH_SHORT).show();
+
+                        String smsMsg = "Transaction success!";
+                        SmsManager.getDefault().sendTextMessage("5554", null, smsMsg, null, null);
 
                         Intent intent = new Intent(BuyItemActivity.this, MainFormActivity.class);
                         Bundle bundle = new Bundle();
@@ -159,5 +167,9 @@ public class BuyItemActivity extends AppCompatActivity  {
             }
         }
         return null;
+    }
+
+    private void requestSmsPermission() {
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECEIVE_SMS, Manifest.permission.SEND_SMS}, 0);
     }
 }

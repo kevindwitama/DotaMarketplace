@@ -100,6 +100,7 @@ public class DBHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    // insert data user
     public boolean insertNewUser(String username, String fullName, String password, String phoneNum, boolean gender, float balance) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
@@ -114,6 +115,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return result != -1;
     }
 
+    // insert data item
     public boolean insertNewItem(String name, int price, int stock, float latitude, float longitude) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
@@ -127,6 +129,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return result != -1;
     }
 
+    // insert data transaction
     public boolean insertNewTransaction(int userId, int itemId, int qty, String date) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
@@ -139,6 +142,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return result != -1;
     }
 
+    // return semua users dalam bentuk list
     public ArrayList<User> fetchUsers() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_USERS, null);
@@ -160,6 +164,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return users;
     }
 
+    // return semua items dalam bentuk list
     public ArrayList<Item> fetchItems(){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_ITEMS, null);
@@ -180,6 +185,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return items;
     }
 
+    // return semua transactions dalam bentuk list
     public ArrayList<Transaction> fetchTransactions() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_TRANSACTIONS, null);
@@ -199,6 +205,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return transactions;
     }
 
+    // return single user berdasarkan id
     public User getUser(int userId) {
         for (User u : this.fetchUsers()) {
             if (u.getId() == userId) {
@@ -208,6 +215,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return null;
     }
 
+    // return single item berdasarkan id
     public Item getItem(int itemId) {
         for (Item i : this.fetchItems()) {
             if (i.getId() == itemId) {
@@ -217,6 +225,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return null;
     }
 
+    // update stock satu item berdasarkan id
     public void updateItemStock(Item item, int newStock) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
@@ -227,6 +236,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.update(TABLE_ITEMS, cv, ITEM_ID + " = ?", new String[]{itemId});
     }
 
+    // update balance satu user berdasarkan id
     public void updateUserBalance(User user, float newBalance) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
@@ -237,6 +247,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.update(TABLE_USERS, cv, USER_ID + " = ?", new String[]{userId});
     }
 
+    // clear table
     public void clearTransactionHistory() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("delete from " + TABLE_TRANSACTIONS);
