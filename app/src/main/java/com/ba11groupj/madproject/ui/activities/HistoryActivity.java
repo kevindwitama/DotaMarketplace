@@ -8,10 +8,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.ba11groupj.madproject.helpers.DBHelper;
 import com.ba11groupj.madproject.R;
-import com.ba11groupj.madproject.ui.adapters.TransAdapter;
+import com.ba11groupj.madproject.helpers.DBHelper;
 import com.ba11groupj.madproject.models.User;
+import com.ba11groupj.madproject.ui.adapters.TransAdapter;
 
 public class HistoryActivity extends AppCompatActivity {
 
@@ -26,7 +26,7 @@ public class HistoryActivity extends AppCompatActivity {
 
     Bundle bundle;
 
-    DBHelper database;
+    DBHelper database = new DBHelper(this);
 
     void initData() {
         bundle = getIntent().getExtras();
@@ -36,7 +36,7 @@ public class HistoryActivity extends AppCompatActivity {
     }
 
     void init() {
-        rvTrans = findViewById(R.id.rv_item);
+        rvTrans = findViewById(R.id.rv_trans);
         myAdapter = new TransAdapter(this, user);
         layoutManager = new LinearLayoutManager(this);
 

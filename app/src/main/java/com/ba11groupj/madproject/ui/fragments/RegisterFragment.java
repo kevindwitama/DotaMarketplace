@@ -14,10 +14,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.ba11groupj.madproject.R;
 import com.ba11groupj.madproject.helpers.DBHelper;
 import com.ba11groupj.madproject.ui.activities.MainActivity;
-import com.ba11groupj.madproject.R;
-import com.ba11groupj.madproject.models.User;
+import com.ba11groupj.madproject.utils.UserUtils;
 
 public class RegisterFragment extends Fragment {
 
@@ -27,7 +27,9 @@ public class RegisterFragment extends Fragment {
     CheckBox chkTerms;
 
     MainActivity mainAct = ((MainActivity) getActivity());
+
     DBHelper database;
+    UserUtils validationUtils;
 
     @Nullable
     @Override
@@ -62,13 +64,13 @@ public class RegisterFragment extends Fragment {
                     Toast.makeText(getActivity(), "Full Name must consist of two words!", Toast.LENGTH_LONG).show();
                 } else if (username.isEmpty()) {
                     Toast.makeText(getActivity(), "Username must be filled in!", Toast.LENGTH_SHORT).show();
-                } else if (isUserRegistered(username)) {
+                } else if (validationUtils.checkIfRegistered(username, password, database)) {
                     Toast.makeText(getActivity(), "Username already registered!", Toast.LENGTH_SHORT).show();
                 } else if (username.length() < 5 || username.length() > 25) {
                     Toast.makeText(getActivity(), "Username must be between 5 and 25 characters!", Toast.LENGTH_LONG).show();
                 } else if (password.isEmpty()) {
                     Toast.makeText(getActivity(), "Password must be filled in!", Toast.LENGTH_SHORT).show();
-                }  else if (!validatePass(password)) {
+                } else if (!validatePass(password)) {
                     Toast.makeText(getActivity(), "Password must contain uppercase, lowercase, and numeric characters!", Toast.LENGTH_LONG).show();
                 } else if (password.length() > 15) {
                     Toast.makeText(getActivity(), "Password must be less than 15 characters!", Toast.LENGTH_SHORT).show();
@@ -96,15 +98,6 @@ public class RegisterFragment extends Fragment {
         return view;
     }
 
-    private boolean isUserRegistered(String username) {
-        for (User u : database.fetchUsers()) {
-            if (u.getUsername().equals(username)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     private boolean validatePass(String password) {
         boolean containsUpper = false;
         boolean containsSpecial = false;
@@ -120,11 +113,7 @@ public class RegisterFragment extends Fragment {
             }
         }
 
-        if (containsUpper && containsSpecial && containsNum) {
-            return true;
-        } else {
-            return false;
-        }
+        return containsUpper && containsSpecial && containsNum;
     }
 
     private boolean validatePhoneNum(String phoneNum) {
@@ -144,18 +133,10 @@ public class RegisterFragment extends Fragment {
             cntCharSpecials = cntCharSpecials - 1;
         }
 
-        if (containsLetter || cntCharSpecials != 0) {
-            return false;
-        } else {
-            return true;
-        }
+        return !containsLetter && cntCharSpecials == 0;
     }
 
     private boolean isMale(RadioGroup radioGroup) {
-        if (rdGender.getCheckedRadioButtonId() == 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return rdGender.getCheckedRadioButtonId() == 0;
     }
 }

@@ -11,10 +11,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.ba11groupj.madproject.helpers.DBHelper;
-import com.ba11groupj.madproject.ui.adapters.ItemAdapter;
 import com.ba11groupj.madproject.R;
+import com.ba11groupj.madproject.helpers.DBHelper;
 import com.ba11groupj.madproject.models.User;
+import com.ba11groupj.madproject.ui.adapters.ItemAdapter;
 
 public class MainFormActivity extends AppCompatActivity {
 
@@ -39,7 +39,7 @@ public class MainFormActivity extends AppCompatActivity {
     }
 
     void init() {
-        rvItem = findViewById(R.id.rv_item);
+        rvItem = findViewById(R.id.rv_trans);
         myAdapter = new ItemAdapter(this, user);
         layoutManager = new LinearLayoutManager(this);
 
