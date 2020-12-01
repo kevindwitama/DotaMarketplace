@@ -2,9 +2,9 @@ package com.ba11groupj.madproject.models;
 
 public class User {
 
-    public User(String name, String username, String password, String phoneNum, boolean genderIsM, int balance) {
-        this.userId = "U" + username;
-        this.name = name;
+    public User(int userId, String fullName, String username, String password, String phoneNum, boolean genderIsM, float balance) {
+        this.userId = userId;
+        this.fullName = fullName;
         this.username = username;
         this.password = password;
         this.phoneNum = phoneNum;
@@ -12,15 +12,15 @@ public class User {
         this.balance = balance;
     }
 
-    private String userId;
-    private String name;
+    private int userId;
+    private String fullName;
     private String username;
     private String password;
     private String phoneNum;
     private boolean genderIsM;
-    private int balance;
+    private float balance;
 
-    public String getUserId() {
+    public int getUserId() {
         return userId;
     }
 
@@ -32,11 +32,11 @@ public class User {
         return password;
     }
 
-    public int getBalance() {
+    public float getBalance() {
         return balance;
     }
 
-    public void setBalance(int balance) {
+    public void setBalance(float balance) {
         this.balance = balance;
     }
 }

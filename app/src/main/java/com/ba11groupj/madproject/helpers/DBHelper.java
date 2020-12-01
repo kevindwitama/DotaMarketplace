@@ -9,9 +9,13 @@ import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.Nullable;
 
 import com.ba11groupj.madproject.models.Item;
+import com.ba11groupj.madproject.models.Transaction;
 import com.ba11groupj.madproject.models.User;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class DBHelper extends SQLiteOpenHelper {
 
@@ -42,6 +46,7 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String TRANSACTION_ID = "transactionId";
     private static final String TRANSACTION_USER = "userId";
     private static final String TRANSACTION_ITEM = "itemId";
+    private static final String TRANSACTION_QTY = "quantity";
     private static final String TRANSACTION_DATE = "date";
 
     public DBHelper(@Nullable Context context) {
@@ -68,8 +73,8 @@ public class DBHelper extends SQLiteOpenHelper {
         query = "CREATE TABLE " + TABLE_ITEMS + "(" +
                 ITEM_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 ITEM_NAME + " TEXT," +
-                ITEM_PRICE + " INT," +
-                ITEM_STOCK + " INT," +
+                ITEM_PRICE + " INTEGER," +
+                ITEM_STOCK + " INTEGER," +
                 ITEM_LAT + " REAL," +
                 ITEM_LONG + " REAL" +
                 ");";
@@ -78,9 +83,10 @@ public class DBHelper extends SQLiteOpenHelper {
         // create transactions table
         query = "CREATE TABLE " + TABLE_TRANSACTIONS + "(" +
                 TRANSACTION_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                TRANSACTION_USER + " INT," +
-                TRANSACTION_ITEM + " INT," +
-                TRANSACTION_DATE + " INT," +
+                TRANSACTION_USER + " INTEGER," +
+                TRANSACTION_ITEM + " INTEGER," +
+                TRANSACTION_QTY + " INTEGER," +
+                TRANSACTION_DATE + " NUMERIC," +
                 "FOREIGN KEY("+TRANSACTION_USER +") REFERENCES " + TABLE_USERS + "("+USER_ID+")" + "," +
                 "FOREIGN KEY("+TRANSACTION_ITEM +") REFERENCES " + TABLE_ITEMS + "("+ITEM_ID+")" +
                 ");";
@@ -97,11 +103,15 @@ public class DBHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean insertNewUser(String username, String password) {
+    public boolean insertNewUser(String username, String fullName, String password, String phoneNum, boolean gender, float balance) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(USERNAME, username);
+        cv.put(USER_FULLNAME, fullName);
         cv.put(USER_PASS, password);
+        cv.put(USER_PHONE, phoneNum);
+        cv.put(USER_GENDER, gender);
+        cv.put(USER_BALANCE, balance);
 
         long result = db.insert(TABLE_USERS, null , cv);
         if (result == -1) {
@@ -111,14 +121,15 @@ public class DBHelper extends SQLiteOpenHelper {
         return true;
     }
 
-    public boolean insertNewRoom(String num, int price, boolean booked) {
+    public boolean insertNewTransaction(int userId, int itemId, int qty, Date date) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
-        cv.put(ITEM_NAME, num);
-        cv.put(ITEM_PRICE, price);
-        cv.put(ITEM_STOCK, booked);
+        cv.put(TRANSACTION_USER, userId);
+        cv.put(TRANSACTION_ITEM, itemId);
+        cv.put(TRANSACTION_QTY, qty);
+        cv.put(TRANSACTION_DATE, String.valueOf(date));
 
-        long result = db.insert(TABLE_ITEMS, null , cv);
+        long result = db.insert(TABLE_USERS, null , cv);
         if (result == -1) {
             return false;
         }
@@ -128,13 +139,18 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public ArrayList<User> fetchUsers(){
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM users", null);
-        ArrayList<User> users = new ArrayList<User>();
+        Cursor cursor = db.rawQuery("SELECT * FROM "+ TABLE_USERS, null);
+        ArrayList<User> users = new ArrayList<>();
         while(cursor.moveToNext()) {
             User user;
-            String email = cursor.getString(cursor.getColumnIndexOrThrow(USERNAME));
+            int userId = cursor.getInt(cursor.getColumnIndexOrThrow(USER_ID));
+            String username = cursor.getString(cursor.getColumnIndexOrThrow(USERNAME));
+            String fullName = cursor.getString(cursor.getColumnIndexOrThrow(USER_FULLNAME));
             String password = cursor.getString(cursor.getColumnIndexOrThrow(USER_PASS));
-            user = new User(email, password);
+            String phoneNum = cursor.getString(cursor.getColumnIndexOrThrow(USER_PHONE));
+            boolean gender = cursor.getInt(cursor.getColumnIndexOrThrow(USER_GENDER)) != 0;
+            float balance = cursor.getFloat(cursor.getColumnIndexOrThrow(USER_BALANCE));
+            user = new User(userId, fullName, username, password, phoneNum, gender, balance);
             users.add(user);
         }
         cursor.close();
@@ -144,14 +160,17 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public ArrayList<Item> fetchItems(){
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM rooms", null);
-        ArrayList<Item> items = new ArrayList<Item>();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_ITEMS, null);
+        ArrayList<Item> items = new ArrayList<>();
         while(cursor.moveToNext()) {
             Item item;
-            String num = cursor.getString(cursor.getColumnIndexOrThrow(ITEM_NAME));
+            int id = cursor.getInt(cursor.getColumnIndexOrThrow(ITEM_ID));
+            String name = cursor.getString(cursor.getColumnIndexOrThrow(ITEM_NAME));
             int price = cursor.getInt(cursor.getColumnIndexOrThrow(ITEM_PRICE));
-            boolean booked = cursor.getInt(cursor.getColumnIndexOrThrow(ITEM_STOCK)) != 0;
-            item = new Item(num, price, booked);
+            int stock = cursor.getInt(cursor.getColumnIndexOrThrow(ITEM_STOCK));
+            int latitude = cursor.getInt(cursor.getColumnIndexOrThrow(ITEM_LAT));
+            int longitude = cursor.getInt(cursor.getColumnIndexOrThrow(ITEM_LONG));
+            item = new Item(id, name, price, stock, latitude, longitude);
             items.add(item);
         }
         cursor.close();
@@ -159,20 +178,52 @@ public class DBHelper extends SQLiteOpenHelper {
         return items;
     }
 
-//    public void updateRoomStatus(Room room) {
-//        SQLiteDatabase db = this.getWritableDatabase();
-//        ContentValues cv = new ContentValues();
-//
-//        String roomNum = room.getNum();
-//        int booked;
-//
-//        if (room.isBooked()) {
-//            booked = 1;
-//        } else {
-//            booked = 0;
-//        }
-//
-//        cv.put(ROOM_BOOK, booked);
-//        db.update(TABLE_ROOMS, cv, ROOM_NUM + " = ?", new String[]{roomNum});
-//    }
+    public ArrayList<Transaction> fetchTransactions() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM users", null);
+        ArrayList<Transaction> transactions = new ArrayList<>();
+        while(cursor.moveToNext()) {
+            Transaction t;
+            SimpleDateFormat newFormat = new SimpleDateFormat("yyyy-MM-dd");
+            int transId = cursor.getInt(cursor.getColumnIndexOrThrow(TRANSACTION_ID));
+            int userId = cursor.getInt(cursor.getColumnIndexOrThrow(TRANSACTION_USER));
+            int itemId = cursor.getInt(cursor.getColumnIndexOrThrow(TRANSACTION_ITEM));
+            int qty = cursor.getInt(cursor.getColumnIndexOrThrow(TRANSACTION_QTY));
+            Date transDate = null;
+            try {
+                transDate = newFormat.parse(cursor.getString(cursor.getColumnIndexOrThrow(TRANSACTION_DATE)));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            t = new Transaction(transId, userId, itemId, qty, transDate);
+            transactions.add(t);
+        }
+        cursor.close();
+
+        return transactions;
+    }
+
+    public User getUser(int userId) {
+        for (User u : this.fetchUsers()) {
+            if (u.getUserId() == userId) {
+                return u;
+            }
+        }
+        return null;
+    }
+
+    public Item getItem(int itemId) {
+        for (Item i : this.fetchItems()) {
+            if (i.getId() == itemId) {
+                return i;
+            }
+        }
+        return null;
+    }
+
+    public void clearTransactionHistory() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("delete from "+ TABLE_TRANSACTIONS);
+    }
 }

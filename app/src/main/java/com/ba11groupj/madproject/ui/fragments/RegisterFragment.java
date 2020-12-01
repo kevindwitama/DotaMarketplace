@@ -14,8 +14,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.ba11groupj.madproject.helpers.DBHelper;
 import com.ba11groupj.madproject.ui.activities.MainActivity;
-import com.ba11groupj.madproject.helpers.DataHelper;
 import com.ba11groupj.madproject.R;
 import com.ba11groupj.madproject.models.User;
 
@@ -26,6 +26,9 @@ public class RegisterFragment extends Fragment {
     Button btnRegister;
     CheckBox chkTerms;
 
+    MainActivity mainAct = ((MainActivity) getActivity());
+    DBHelper database;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -33,6 +36,7 @@ public class RegisterFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_register,container, false);
+        database = new DBHelper(this.getContext());
 
         fldFullname = view.findViewById(R.id.txtName);
         fldUsername = view.findViewById(R.id.txtRegUsername);
@@ -46,8 +50,6 @@ public class RegisterFragment extends Fragment {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity mainAct = ((MainActivity) getActivity());
-
                 String fullName = fldFullname.getText().toString().trim();
                 String username = fldUsername.getText().toString().trim();
                 String password = fldPassword.getText().toString().trim();
@@ -56,11 +58,11 @@ public class RegisterFragment extends Fragment {
 
                 if (fullName.isEmpty()) {
                     Toast.makeText(getActivity(), "Name must be filled in!", Toast.LENGTH_SHORT).show();
-                } else if (!username.contains(" ")) {
-                    Toast.makeText(getActivity(), "Username must consist of two words!", Toast.LENGTH_LONG).show();
+                } else if (!fullName.contains(" ")) {
+                    Toast.makeText(getActivity(), "Full Name must consist of two words!", Toast.LENGTH_LONG).show();
                 } else if (username.isEmpty()) {
                     Toast.makeText(getActivity(), "Username must be filled in!", Toast.LENGTH_SHORT).show();
-                } else if (checkIfUserRegistered(username)) {
+                } else if (isUserRegistered(username)) {
                     Toast.makeText(getActivity(), "Username already registered!", Toast.LENGTH_SHORT).show();
                 } else if (username.length() < 5 || username.length() > 25) {
                     Toast.makeText(getActivity(), "Username must be between 5 and 25 characters!", Toast.LENGTH_LONG).show();
@@ -85,7 +87,7 @@ public class RegisterFragment extends Fragment {
                 } else {
                     Toast.makeText(getActivity(), "Successfully registered!", Toast.LENGTH_LONG).show();
 
-                    DataHelper.arrUser.add(new User(fullName, username, password, phoneNum, isMale(rdGender), 0));
+                    database.insertNewUser(username, fullName, password, phoneNum, isMale(rdGender), 0);
                     mainAct.getTabHost().setCurrentTab(0);
                 }
             }
@@ -94,8 +96,8 @@ public class RegisterFragment extends Fragment {
         return view;
     }
 
-    private boolean checkIfUserRegistered(String username) {
-        for (User u : DataHelper.arrUser) {
+    private boolean isUserRegistered(String username) {
+        for (User u : database.fetchUsers()) {
             if (u.getUsername().equals(username)) {
                 return true;
             }

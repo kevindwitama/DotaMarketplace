@@ -3,30 +3,29 @@ package com.ba11groupj.madproject.models;
 import java.util.Date;
 
 public class Transaction {
-    String transactionId;
-    String userId;
-    String itemId;
-
+    int transactionId;
+    int userId;
+    int itemId;
     int itemQty;
     Date transactionDate;
 
-    public Transaction(String userId, String itemId, int itemQty, Date transactionDate) {
-        this.transactionId = "T" + transactionDate + userId;
+    public Transaction(int transactionId, int userId, int itemId, int itemQty, Date transactionDate) {
+        this.transactionId = transactionId;
         this.userId = userId;
         this.itemId = itemId;
         this.itemQty= itemQty;
         this.transactionDate = transactionDate;
     }
 
-    public String getTransactionId() {
+    public int getTransactionId() {
         return transactionId;
     }
 
-    public String getUserId() {
+    public int getUserId() {
         return userId;
     }
 
-    public String getItemId() {
+    public int getItemId() {
         return itemId;
     }
 

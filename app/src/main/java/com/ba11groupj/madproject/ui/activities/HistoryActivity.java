@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.ba11groupj.madproject.helpers.DataHelper;
+import com.ba11groupj.madproject.helpers.DBHelper;
 import com.ba11groupj.madproject.R;
 import com.ba11groupj.madproject.ui.adapters.TransAdapter;
 import com.ba11groupj.madproject.models.User;
@@ -22,15 +22,17 @@ public class HistoryActivity extends AppCompatActivity {
     Button btnClear;
 
     User user;
-    String userId;
+    int userId;
 
     Bundle bundle;
+
+    DBHelper database;
 
     void initData() {
         bundle = getIntent().getExtras();
 
-        userId = bundle.getString("userId");
-        user = DataHelper.getUser(userId);
+        userId = bundle.getInt("userId");
+        database.getUser(userId);
     }
 
     void init() {
@@ -55,7 +57,7 @@ public class HistoryActivity extends AppCompatActivity {
         btnClear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DataHelper.arrTransaction.clear();
+                database.clearTransactionHistory();
                 myAdapter.notifyDataSetChanged();
             }
         });

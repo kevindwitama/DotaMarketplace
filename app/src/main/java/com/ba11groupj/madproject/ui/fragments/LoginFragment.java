@@ -2,6 +2,7 @@ package com.ba11groupj.madproject.ui.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +14,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.ba11groupj.madproject.helpers.DBHelper;
 import com.ba11groupj.madproject.ui.activities.MainFormActivity;
-import com.ba11groupj.madproject.helpers.DataHelper;
 import com.ba11groupj.madproject.R;
 import com.ba11groupj.madproject.models.User;
 
@@ -23,6 +24,8 @@ public class LoginFragment extends Fragment {
     EditText fldUsername, fldPassword;
     Button btnLogin;
     View view;
+
+    DBHelper database;
 
     void init() {
         fldUsername = view.findViewById(R.id.txtLoginUsername);
@@ -37,6 +40,7 @@ public class LoginFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.fragment_login,container, false);
+        database = new DBHelper(this.getContext());
 
         init();
 
@@ -56,7 +60,7 @@ public class LoginFragment extends Fragment {
                     Intent intent = new Intent(getActivity(), MainFormActivity.class);
                     Bundle bundle = new Bundle();
 
-                    bundle.putString("userId", getUserId(username, password));
+                    bundle.putInt("userId", getUserId(username, password));
                     intent.putExtras(bundle);
 
                     startActivity(intent);
@@ -68,7 +72,7 @@ public class LoginFragment extends Fragment {
     }
 
     private boolean checkIfRegistered(String username, String password) {
-        for (User u : DataHelper.arrUser) {
+        for (User u : database.fetchUsers()) {
             if (u.getUsername().equals(username) && u.getPassword().equals(password)) {
                 return true;
             }
@@ -76,12 +80,12 @@ public class LoginFragment extends Fragment {
         return false;
     }
 
-    private String getUserId(String username, String password) {
-        for (User u : DataHelper.arrUser) {
+    private int getUserId(String username, String password) {
+        for (User u : database.fetchUsers()) {
             if (u.getUsername().equals(username) && u.getPassword().equals(password)) {
                 return u.getUserId();
             }
         }
-        return null;
+        return 0;
     }
 }

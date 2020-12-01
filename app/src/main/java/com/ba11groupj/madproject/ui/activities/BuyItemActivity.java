@@ -28,18 +28,20 @@ public class BuyItemActivity extends AppCompatActivity  {
     User user;
     Item item;
 
-    String itemId;
+    int itemId;
     String itemName;
     int itemPrice;
     int itemStock;
-    String userId;
-    int userBalance;
+    int userId;
+    float userBalance;
     int subtotal;
+
+    DBHelper database;
 
     void initData() {
         Bundle bundle = getIntent().getExtras();
-        itemId = bundle.getString("itemId");
-        userId = bundle.getString("userId");
+        itemId = bundle.getInt("itemId");
+        userId = bundle.getInt("userId");
 
         item = getItemData(itemId);
         user = getUserData(userId);
@@ -99,20 +101,17 @@ public class BuyItemActivity extends AppCompatActivity  {
                     } else if (userBalance < (itemPrice * itemQty)) {
                         Toast.makeText(BuyItemActivity.this, "Not enough funds in your balance!", Toast.LENGTH_LONG).show();
                     } else {
-                        DataHelper.arrTransaction.add(new Transaction(userId, itemId, itemQty ,new Date()));
+                        database.insertNewTransaction(userId, itemId, itemQty, new Date());
 
                         item.setStock(itemStock - itemQty);
                         user.setBalance(userBalance - (itemPrice * itemQty));
-
-                        DataHelper.updateArray(user);
-                        DataHelper.updateArray(item);
 
                         Toast.makeText(BuyItemActivity.this, "Transaction success!", Toast.LENGTH_LONG).show();
 
                         Intent intent = new Intent(BuyItemActivity.this, MainFormActivity.class);
                         Bundle bundle = new Bundle();
 
-                        bundle.putString("userId", userId);
+                        bundle.putInt("userId", userId);
                         intent.putExtras(bundle);
 
                         startActivity(intent);
@@ -145,9 +144,9 @@ public class BuyItemActivity extends AppCompatActivity  {
     }
 
     // mengambil object item
-    Item getItemData(String itemId) {
-        for (Item i : DataHelper.arrItem) {
-            if (i.getId().equals(itemId)) {
+    Item getItemData(int itemId) {
+        for (Item i : database.fetchItems()) {
+            if (i.getId() == itemId) {
                 return i;
             }
         }
@@ -155,9 +154,9 @@ public class BuyItemActivity extends AppCompatActivity  {
     }
 
     // mengambil object user
-    User getUserData(String userId) {
-        for (User u : DataHelper.arrUser) {
-            if (u.getUserId().equals(userId)) {
+    User getUserData(int userId) {
+        for (User u : database.fetchUsers()) {
+            if (u.getUserId() == userId) {
                 return u;
             }
         }

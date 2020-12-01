@@ -1,14 +1,14 @@
 package com.ba11groupj.madproject.models;
 
 public class Item {
-    private String id;
+    private int id;
     private String name;
     private int price;
     private int stock;
-    private int latitude;
-    private int longitude;
+    private float latitude;
+    private float longitude;
 
-    public Item(String id, String name, int price, int stock, int latitude, int longitude) {
+    public Item(int id, String name, int price, int stock, float latitude, float longitude) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -17,11 +17,11 @@ public class Item {
         this.longitude = longitude;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

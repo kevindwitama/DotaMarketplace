@@ -10,8 +10,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.ba11groupj.madproject.helpers.DBHelper;
 import com.ba11groupj.madproject.ui.activities.BuyItemActivity;
-import com.ba11groupj.madproject.helpers.DataHelper;
 import com.ba11groupj.madproject.models.Item;
 import com.ba11groupj.madproject.R;
 import com.ba11groupj.madproject.models.User;
@@ -24,9 +24,12 @@ public class ItemAdapter extends RecyclerView.Adapter<ViewHolder> {
     ArrayList<Item> arrItem;
     User user;
 
+    DBHelper database;
+
     public ItemAdapter(Context mCtx, User user) {
         this.mCtx = mCtx;
-        this.arrItem = DataHelper.arrItem;
+        DBHelper database = new DBHelper(mCtx);
+        this.arrItem = database.fetchItems();
         this.user = user;
     }
 
@@ -41,7 +44,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Item item = arrItem.get(position);
 
-        final String strItemId = item.getId();
+        final int strItemId = item.getId();
 
         holder.fldItemName.setText(item.getName());
         holder.fldItemPrice.setText("Rp " + item.getPrice());
@@ -54,8 +57,8 @@ public class ItemAdapter extends RecyclerView.Adapter<ViewHolder> {
                 Intent intent = new Intent(context, BuyItemActivity.class);
                 Bundle bundle = new Bundle();
 
-                bundle.putString("itemId", strItemId);
-                bundle.putString("userId", user.getUserId());
+                bundle.putInt("itemId", strItemId);
+                bundle.putInt("userId", user.getUserId());
                 intent.putExtras(bundle);
 
                 context.startActivity(intent);

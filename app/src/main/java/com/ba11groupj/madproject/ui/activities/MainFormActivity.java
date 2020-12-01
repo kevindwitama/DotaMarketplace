@@ -11,8 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.ba11groupj.madproject.helpers.DataHelper;
-import com.ba11groupj.madproject.models.Item;
+import com.ba11groupj.madproject.helpers.DBHelper;
 import com.ba11groupj.madproject.ui.adapters.ItemAdapter;
 import com.ba11groupj.madproject.R;
 import com.ba11groupj.madproject.models.User;
@@ -25,23 +24,18 @@ public class MainFormActivity extends AppCompatActivity {
     RecyclerView.LayoutManager layoutManager;
 
     User user;
-    String userId;
+    int userId;
 
     Bundle bundle;
 
-    void initData() {
-        if (DataHelper.arrItem.isEmpty()) {
-            DataHelper.arrItem.add(new Item("I0001", "Item 01", 10000, 10, 0, 0));
-            DataHelper.arrItem.add(new Item("I0002", "Item 02", 20000, 20, 0, 0));
-            DataHelper.arrItem.add(new Item("I0003", "Item 03", 30000, 30, 0, 0));
-            DataHelper.arrItem.add(new Item("I0004", "Item 04", 40000, 40, 0, 0));
-            DataHelper.arrItem.add(new Item("I0005", "Item 05", 50000, 50, 0, 0));
-        }
+    DBHelper database;
 
+    void initData() {
         bundle = getIntent().getExtras();
 
-        userId = bundle.getString("userId");
-        user = DataHelper.getUser(userId);
+        database = new DBHelper(this);
+        userId = bundle.getInt("userId");
+        user = database.getUser(userId);
     }
 
     void init() {
@@ -81,7 +75,7 @@ public class MainFormActivity extends AppCompatActivity {
             Intent intent = new Intent(this, TopUpActivity.class);
             Bundle bundle = new Bundle();
 
-            bundle.putString("userId", userId);
+            bundle.putInt("userId", userId);
             intent.putExtras(bundle);
 
             startActivity(intent);
@@ -89,7 +83,7 @@ public class MainFormActivity extends AppCompatActivity {
             Intent intent = new Intent(this, HistoryActivity.class);
             Bundle bundle = new Bundle();
 
-            bundle.putString("userId", userId);
+            bundle.putInt("userId", userId);
             intent.putExtras(bundle);
 
             startActivity(intent);

@@ -10,8 +10,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.ba11groupj.madproject.helpers.DataHelper;
 import com.ba11groupj.madproject.R;
+import com.ba11groupj.madproject.helpers.DBHelper;
 import com.ba11groupj.madproject.models.User;
 
 public class TopUpActivity extends AppCompatActivity {
@@ -20,17 +20,19 @@ public class TopUpActivity extends AppCompatActivity {
     EditText fldBalanceAmt, fldPassword;
     Button btnAddBalance;
 
-    String userId;
+    int userId;
 
     User user;
 
     Bundle bundle;
 
+    DBHelper database = new DBHelper(this);
+
     void initData() {
         bundle = getIntent().getExtras();
 
-        userId = bundle.getString("userId");
-        user = DataHelper.getUser(userId);
+        userId = bundle.getInt("userId");
+        user = database.getUser(userId);
     }
 
     void init() {
@@ -61,19 +63,18 @@ public class TopUpActivity extends AppCompatActivity {
 
                     if (balanceAmt < 50000) {
                         Toast.makeText(TopUpActivity.this, "Balance to be added must be more than 50k!", Toast.LENGTH_SHORT).show();
-                    } else if (!strPassword.equals(DataHelper.getUser(userId).getPassword())) {
+                    } else if (!strPassword.equals(database.getUser(userId).getPassword())) {
                         Toast.makeText(TopUpActivity.this, "Password does not match!", Toast.LENGTH_LONG).show();
                     } else {
 
                         user.setBalance(user.getBalance() + balanceAmt);
-                        DataHelper.updateArray(user);
 
                         Toast.makeText(TopUpActivity.this, "Top Up success!", Toast.LENGTH_LONG).show();
 
                         Intent intent = new Intent(TopUpActivity.this, MainFormActivity.class);
                         Bundle bundle = new Bundle();
 
-                        bundle.putString("userId", userId);
+                        bundle.putInt("userId", userId);
                         intent.putExtras(bundle);
 
                         startActivity(intent);

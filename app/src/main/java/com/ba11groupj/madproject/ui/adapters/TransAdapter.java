@@ -8,8 +8,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.ba11groupj.madproject.helpers.DataHelper;
 import com.ba11groupj.madproject.R;
+import com.ba11groupj.madproject.helpers.DBHelper;
 import com.ba11groupj.madproject.models.Transaction;
 import com.ba11groupj.madproject.models.User;
 
@@ -21,9 +21,11 @@ public class TransAdapter extends RecyclerView.Adapter<ViewHolder> {
     ArrayList<Transaction> arrTrans;
     User user;
 
+    DBHelper database;
+
     public TransAdapter(Context mCtx, User user) {
         this.mCtx = mCtx;
-        this.arrTrans = DataHelper.arrTransaction;
+        this.arrTrans = database.fetchTransactions();
         this.user = user;
     }
 
@@ -37,10 +39,10 @@ public class TransAdapter extends RecyclerView.Adapter<ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         Transaction trans = arrTrans.get(position);
-        int itemPrice = DataHelper.getItem(trans.getItemId()).getPrice();
+        int itemPrice = database.getItem(trans.getItemId()).getPrice();
         int minusBal = itemPrice * trans.getItemQty();
 
-        holder.fldItemName.setText(DataHelper.getItem(trans.getItemId()).getName());
+        holder.fldItemName.setText(database.getItem(trans.getItemId()).getName());
         holder.fldItemPrice.setText("Rp " + itemPrice);
         holder.fldItemStock.setText("Total Cost: Rp -" + minusBal);
         holder.btnBuy.setText("Clear Entry");
