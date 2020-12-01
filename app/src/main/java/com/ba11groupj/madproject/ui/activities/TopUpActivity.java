@@ -52,6 +52,7 @@ public class TopUpActivity extends AppCompatActivity {
 
         txtBalance.setText("Current Balance: Rp " + user.getBalance());
 
+        // fungsi utk add balance
         btnAddBalance.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,10 +68,12 @@ public class TopUpActivity extends AppCompatActivity {
                         Toast.makeText(TopUpActivity.this, "Password does not match!", Toast.LENGTH_LONG).show();
                     } else {
 
+                        // update data user di database
                         database.updateUserBalance(user, user.getBalance() + balanceAmt);
 
                         Toast.makeText(TopUpActivity.this, "Top Up success!", Toast.LENGTH_LONG).show();
 
+                        // intents utk membawa user id
                         Intent intent = new Intent(TopUpActivity.this, MainFormActivity.class);
                         Bundle bundle = new Bundle();
 
