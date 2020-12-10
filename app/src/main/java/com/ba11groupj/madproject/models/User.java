@@ -12,15 +12,15 @@ public class User {
         this.balance = balance;
     }
 
-    private int userId;
-    private String fullName;
-    private String username;
-    private String password;
-    private String phoneNum;
-    private boolean genderIsM;
+    private final int userId;
+    private final String fullName;
+    private final String username;
+    private final String password;
+    private final String phoneNum;
+    private final boolean genderIsM;
     private float balance;
 
-    public int getUserId() {
+    public int getId() {
         return userId;
     }
 

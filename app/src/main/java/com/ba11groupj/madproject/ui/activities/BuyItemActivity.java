@@ -10,12 +10,12 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.ba11groupj.madproject.R;
 import com.ba11groupj.madproject.helpers.DBHelper;
 import com.ba11groupj.madproject.models.Item;
-import com.ba11groupj.madproject.R;
-import com.ba11groupj.madproject.models.Transaction;
 import com.ba11groupj.madproject.models.User;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class BuyItemActivity extends AppCompatActivity  {
@@ -36,7 +36,7 @@ public class BuyItemActivity extends AppCompatActivity  {
     float userBalance;
     int subtotal;
 
-    DBHelper database;
+    DBHelper database = new DBHelper(this);
 
     void initData() {
         Bundle bundle = getIntent().getExtras();
@@ -101,10 +101,12 @@ public class BuyItemActivity extends AppCompatActivity  {
                     } else if (userBalance < (itemPrice * itemQty)) {
                         Toast.makeText(BuyItemActivity.this, "Not enough funds in your balance!", Toast.LENGTH_LONG).show();
                     } else {
-                        database.insertNewTransaction(userId, itemId, itemQty, new Date());
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                        String date = dateFormat.format(new Date());
+                        database.insertNewTransaction(userId, itemId, itemQty, date);
 
-                        item.setStock(itemStock - itemQty);
-                        user.setBalance(userBalance - (itemPrice * itemQty));
+                        database.updateItemStock(item, itemStock - itemQty);
+                        database.updateUserBalance(user, userBalance - (itemPrice * itemQty));
 
                         Toast.makeText(BuyItemActivity.this, "Transaction success!", Toast.LENGTH_LONG).show();
 
@@ -134,11 +136,7 @@ public class BuyItemActivity extends AppCompatActivity  {
                     }
                 }
 
-                if (containsUpper || containsSpecial) {
-                    return false;
-                } else {
-                    return true;
-                }
+                return !containsUpper && !containsSpecial;
             }
         });
     }
@@ -156,7 +154,7 @@ public class BuyItemActivity extends AppCompatActivity  {
     // mengambil object user
     User getUserData(int userId) {
         for (User u : database.fetchUsers()) {
-            if (u.getUserId() == userId) {
+            if (u.getId() == userId) {
                 return u;
             }
         }

@@ -35,7 +35,7 @@
 
             <!-- Nama Item (Name of Item) -->
             <TextView
-                android:id="@+id/txtItemName"
+                android:id="@+id/lblItemName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Item Name"
@@ -49,7 +49,7 @@
 
             <!-- Stok Item (Stock of Item) -->
             <TextView
-                android:id="@+id/txtItemStock"
+                android:id="@+id/lbltemStock"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Item Stock"
@@ -58,14 +58,14 @@
                 android:textStyle="bold"
                 android:textSize="24sp"
                 android:layout_marginTop="5dp"
-                android:layout_below="@id/txtItemName"
+                android:layout_below="@id/lblItemName"
                 android:layout_toRightOf="@id/imgGameBuy"
                 android:paddingLeft="10sp"
                 />
 
             <!-- Harga Item (Price of Item) -->
             <TextView
-                android:id="@+id/txtItemPrice"
+                android:id="@+id/lblItemPrice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Item Price"
@@ -74,7 +74,7 @@
                 android:textStyle="bold"
                 android:textSize="24sp"
                 android:layout_marginTop="5dp"
-                android:layout_below="@id/txtItemStock"
+                android:layout_below="@id/lbltemStock"
                 android:layout_toRightOf="@id/imgGameBuy"
                 android:paddingLeft="10sp"
                 />
@@ -84,7 +84,7 @@
                 android:id="@+id/btnBuyItem"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/txtItemPrice"
+                android:layout_below="@id/lblItemPrice"
                 android:layout_marginTop="15dp"
                 android:layout_toRightOf="@id/imgGameBuy"
                 android:background="@drawable/button_buy_list"

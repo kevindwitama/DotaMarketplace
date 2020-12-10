@@ -12,10 +12,7 @@ import com.ba11groupj.madproject.models.Item;
 import com.ba11groupj.madproject.models.Transaction;
 import com.ba11groupj.madproject.models.User;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class DBHelper extends SQLiteOpenHelper {
 
@@ -62,10 +59,10 @@ public class DBHelper extends SQLiteOpenHelper {
                 USER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 USER_FULLNAME + " TEXT," +
                 USERNAME + " TEXT," +
-                USER_PASS+" TEXT,"+
-                USER_PHONE+" TEXT,"+
-                USER_GENDER+" BOOLEAN,"+
-                USER_BALANCE+" REAL"+
+                USER_PASS + " TEXT," +
+                USER_PHONE + " TEXT," +
+                USER_GENDER + " BOOLEAN," +
+                USER_BALANCE + " FLOAT" +
                 ");";
         db.execSQL(query);
 
@@ -75,8 +72,8 @@ public class DBHelper extends SQLiteOpenHelper {
                 ITEM_NAME + " TEXT," +
                 ITEM_PRICE + " INTEGER," +
                 ITEM_STOCK + " INTEGER," +
-                ITEM_LAT + " REAL," +
-                ITEM_LONG + " REAL" +
+                ITEM_LAT + " FLOAT," +
+                ITEM_LONG + " FLOAT" +
                 ");";
         db.execSQL(query);
 
@@ -86,9 +83,9 @@ public class DBHelper extends SQLiteOpenHelper {
                 TRANSACTION_USER + " INTEGER," +
                 TRANSACTION_ITEM + " INTEGER," +
                 TRANSACTION_QTY + " INTEGER," +
-                TRANSACTION_DATE + " NUMERIC," +
-                "FOREIGN KEY("+TRANSACTION_USER +") REFERENCES " + TABLE_USERS + "("+USER_ID+")" + "," +
-                "FOREIGN KEY("+TRANSACTION_ITEM +") REFERENCES " + TABLE_ITEMS + "("+ITEM_ID+")" +
+                TRANSACTION_DATE + " TEXT," +
+                "FOREIGN KEY(" + TRANSACTION_USER + ") REFERENCES " + TABLE_USERS + "(" + USER_ID + ")" + "," +
+                "FOREIGN KEY(" + TRANSACTION_ITEM + ") REFERENCES " + TABLE_ITEMS + "(" + ITEM_ID + ")" +
                 ");";
         db.execSQL(query);
     }
@@ -113,15 +110,24 @@ public class DBHelper extends SQLiteOpenHelper {
         cv.put(USER_GENDER, gender);
         cv.put(USER_BALANCE, balance);
 
-        long result = db.insert(TABLE_USERS, null , cv);
-        if (result == -1) {
-            return false;
-        }
-
-        return true;
+        long result = db.insert(TABLE_USERS, null, cv);
+        return result != -1;
     }
 
-    public boolean insertNewTransaction(int userId, int itemId, int qty, Date date) {
+    public boolean insertNewItem(String name, int price, int stock, float latitude, float longitude) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(ITEM_NAME, name);
+        cv.put(ITEM_PRICE, price);
+        cv.put(ITEM_STOCK, stock);
+        cv.put(ITEM_LAT, latitude);
+        cv.put(ITEM_LONG, longitude);
+
+        long result = db.insert(TABLE_ITEMS, null, cv);
+        return result != -1;
+    }
+
+    public boolean insertNewTransaction(int userId, int itemId, int qty, String date) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(TRANSACTION_USER, userId);
@@ -129,19 +135,15 @@ public class DBHelper extends SQLiteOpenHelper {
         cv.put(TRANSACTION_QTY, qty);
         cv.put(TRANSACTION_DATE, String.valueOf(date));
 
-        long result = db.insert(TABLE_USERS, null , cv);
-        if (result == -1) {
-            return false;
-        }
-
-        return true;
+        long result = db.insert(TABLE_TRANSACTIONS, null, cv);
+        return result != -1;
     }
 
-    public ArrayList<User> fetchUsers(){
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM "+ TABLE_USERS, null);
+    public ArrayList<User> fetchUsers() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_USERS, null);
         ArrayList<User> users = new ArrayList<>();
-        while(cursor.moveToNext()) {
+        while (cursor.moveToNext()) {
             User user;
             int userId = cursor.getInt(cursor.getColumnIndexOrThrow(USER_ID));
             String username = cursor.getString(cursor.getColumnIndexOrThrow(USERNAME));
@@ -159,7 +161,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public ArrayList<Item> fetchItems(){
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_ITEMS, null);
         ArrayList<Item> items = new ArrayList<>();
         while(cursor.moveToNext()) {
@@ -179,23 +181,16 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public ArrayList<Transaction> fetchTransactions() {
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM users", null);
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_TRANSACTIONS, null);
         ArrayList<Transaction> transactions = new ArrayList<>();
-        while(cursor.moveToNext()) {
+        while (cursor.moveToNext()) {
             Transaction t;
-            SimpleDateFormat newFormat = new SimpleDateFormat("yyyy-MM-dd");
             int transId = cursor.getInt(cursor.getColumnIndexOrThrow(TRANSACTION_ID));
             int userId = cursor.getInt(cursor.getColumnIndexOrThrow(TRANSACTION_USER));
             int itemId = cursor.getInt(cursor.getColumnIndexOrThrow(TRANSACTION_ITEM));
             int qty = cursor.getInt(cursor.getColumnIndexOrThrow(TRANSACTION_QTY));
-            Date transDate = null;
-            try {
-                transDate = newFormat.parse(cursor.getString(cursor.getColumnIndexOrThrow(TRANSACTION_DATE)));
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-
+            String transDate = cursor.getString(cursor.getColumnIndexOrThrow(TRANSACTION_DATE));
             t = new Transaction(transId, userId, itemId, qty, transDate);
             transactions.add(t);
         }
@@ -206,7 +201,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public User getUser(int userId) {
         for (User u : this.fetchUsers()) {
-            if (u.getUserId() == userId) {
+            if (u.getId() == userId) {
                 return u;
             }
         }
@@ -224,6 +219,26 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public void clearTransactionHistory() {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("delete from "+ TABLE_TRANSACTIONS);
+        db.execSQL("delete from " + TABLE_TRANSACTIONS);
+    }
+
+    public void updateItemStock(Item item, int newStock) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        String itemId = String.valueOf(item.getId());
+
+        cv.put(ITEM_STOCK, newStock);
+        db.update(TABLE_ITEMS, cv, ITEM_ID + " = ?", new String[]{itemId});
+    }
+
+    public void updateUserBalance(User user, float newBalance) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        String userId = String.valueOf(user.getId());
+
+        cv.put(USER_BALANCE, newBalance);
+        db.update(TABLE_USERS, cv, USER_ID + " = ?", new String[]{userId});
     }
 }

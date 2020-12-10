@@ -59,7 +59,7 @@ public class TopUpActivity extends AppCompatActivity {
                 String strPassword = fldPassword.getText().toString();
 
                 if(!strBalAmt.isEmpty() || !strPassword.isEmpty()) {
-                    int balanceAmt = Integer.parseInt(strBalAmt);
+                    Long balanceAmt = Long.parseLong(strBalAmt);
 
                     if (balanceAmt < 50000) {
                         Toast.makeText(TopUpActivity.this, "Balance to be added must be more than 50k!", Toast.LENGTH_SHORT).show();
@@ -67,7 +67,7 @@ public class TopUpActivity extends AppCompatActivity {
                         Toast.makeText(TopUpActivity.this, "Password does not match!", Toast.LENGTH_LONG).show();
                     } else {
 
-                        user.setBalance(user.getBalance() + balanceAmt);
+                        database.updateUserBalance(user, user.getBalance() + balanceAmt);
 
                         Toast.makeText(TopUpActivity.this, "Top Up success!", Toast.LENGTH_LONG).show();
 

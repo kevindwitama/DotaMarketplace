@@ -10,15 +10,15 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.ba11groupj.madproject.helpers.DBHelper;
-import com.ba11groupj.madproject.ui.activities.BuyItemActivity;
-import com.ba11groupj.madproject.models.Item;
 import com.ba11groupj.madproject.R;
+import com.ba11groupj.madproject.helpers.DBHelper;
+import com.ba11groupj.madproject.models.Item;
 import com.ba11groupj.madproject.models.User;
+import com.ba11groupj.madproject.ui.activities.BuyItemActivity;
 
 import java.util.ArrayList;
 
-public class ItemAdapter extends RecyclerView.Adapter<ViewHolder> {
+public class ItemAdapter extends RecyclerView.Adapter<ItemViewHolder> {
 
     Context mCtx;
     ArrayList<Item> arrItem;
@@ -29,26 +29,26 @@ public class ItemAdapter extends RecyclerView.Adapter<ViewHolder> {
     public ItemAdapter(Context mCtx, User user) {
         this.mCtx = mCtx;
         DBHelper database = new DBHelper(mCtx);
-        this.arrItem = database.fetchItems();
+        arrItem = database.fetchItems();
         this.user = user;
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(mCtx).inflate(R.layout.item_layout, parent, false);
-        return new ViewHolder(v);
+        return new ItemViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
         Item item = arrItem.get(position);
 
         final int strItemId = item.getId();
 
-        holder.fldItemName.setText(item.getName());
-        holder.fldItemPrice.setText("Rp " + item.getPrice());
-        holder.fldItemStock.setText("Stock: " + item.getStock());
+        holder.lblItemName.setText(item.getName());
+        holder.lblItemPrice.setText("Rp " + item.getPrice());
+        holder.lblItemStock.setText("Stock: " + item.getStock());
 
         holder.btnBuy.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,7 +58,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ViewHolder> {
                 Bundle bundle = new Bundle();
 
                 bundle.putInt("itemId", strItemId);
-                bundle.putInt("userId", user.getUserId());
+                bundle.putInt("userId", user.getId());
                 intent.putExtras(bundle);
 
                 context.startActivity(intent);
