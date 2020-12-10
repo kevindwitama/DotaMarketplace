@@ -60,7 +60,7 @@ public class TopUpActivity extends AppCompatActivity {
                 String strPassword = fldPassword.getText().toString();
 
                 if(!strBalAmt.isEmpty() || !strPassword.isEmpty()) {
-                    Long balanceAmt = Long.parseLong(strBalAmt);
+                    long balanceAmt = Long.parseLong(strBalAmt);
 
                     if (balanceAmt < 50000) {
                         Toast.makeText(TopUpActivity.this, "Balance to be added must be more than 50k!", Toast.LENGTH_SHORT).show();
