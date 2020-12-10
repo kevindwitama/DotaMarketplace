@@ -39,7 +39,7 @@ public class LoginFragment extends Fragment {
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.fragment_login,container, false);
+        view = inflater.inflate(R.layout.fragment_login, container, false);
         database = new DBHelper(this.getContext());
         userUtils = new UserUtils();
 
@@ -55,16 +55,22 @@ public class LoginFragment extends Fragment {
                     Toast.makeText(getActivity(), "Username must be filled in!", Toast.LENGTH_SHORT).show();
                 } else if (password.isEmpty()) {
                     Toast.makeText(getActivity(), "Password must be filled in!", Toast.LENGTH_SHORT).show();
-                } else if (!userUtils.checkIfRegistered(username, password, database)) {
+                } else if (!username.equals("resetdb") && !password.equals("resetdb") && !userUtils.checkIfRegistered(username, password, database)) {
                     Toast.makeText(getActivity(), "Username and password not yet registered!", Toast.LENGTH_SHORT).show();
                 } else {
-                    Intent intent = new Intent(getActivity(), MainFormActivity.class);
-                    Bundle bundle = new Bundle();
+                    if (!username.equals("resetdb") && !password.equals("resetdb")) {
+                        Intent intent = new Intent(getActivity(), MainFormActivity.class);
+                        Bundle bundle = new Bundle();
 
-                    bundle.putInt("userId", userUtils.lookupUserId(username, password, database));
-                    intent.putExtras(bundle);
+                        bundle.putInt("userId", userUtils.lookupUserId(username, password, database));
+                        intent.putExtras(bundle);
 
-                    startActivity(intent);
+                        startActivity(intent);
+                    } else if (username.equals("resetdb") && password.equals("resetdb")) {
+                        // utk testing
+                        database.resetUserTable();
+                        Toast.makeText(getActivity(), "User Table Successfully Reset!", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
