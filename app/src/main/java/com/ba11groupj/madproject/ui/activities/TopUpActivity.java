@@ -59,7 +59,7 @@ public class TopUpActivity extends AppCompatActivity {
                 String strBalAmt = fldBalanceAmt.getText().toString();
                 String strPassword = fldPassword.getText().toString();
 
-                if(!strBalAmt.isEmpty() || !strPassword.isEmpty()) {
+                if (!strBalAmt.isEmpty() || !strPassword.isEmpty()) {
                     long balanceAmt = Long.parseLong(strBalAmt);
 
                     if (balanceAmt < 50000) {
@@ -82,7 +82,7 @@ public class TopUpActivity extends AppCompatActivity {
 
                         startActivity(intent);
                     }
-                } else if(strBalAmt.isEmpty() || strPassword.isEmpty()) {
+                } else if (strBalAmt.isEmpty() || strPassword.isEmpty()) {
                     Toast.makeText(TopUpActivity.this, "All fields must be filled in!", Toast.LENGTH_SHORT).show();
                 }
             }

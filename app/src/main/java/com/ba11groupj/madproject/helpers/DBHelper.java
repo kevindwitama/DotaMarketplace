@@ -93,9 +93,9 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         String query;
-        query = "DROP TABLE IF EXISTS "+TABLE_USERS;
+        query = "DROP TABLE IF EXISTS " + TABLE_USERS;
         db.execSQL(query);
-        query = "DROP TABLE IF EXISTS "+ TABLE_ITEMS;
+        query = "DROP TABLE IF EXISTS " + TABLE_ITEMS;
         db.execSQL(query);
         onCreate(db);
     }
@@ -165,11 +165,11 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     // return semua items dalam bentuk list
-    public ArrayList<Item> fetchItems(){
+    public ArrayList<Item> fetchItems() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_ITEMS, null);
         ArrayList<Item> items = new ArrayList<>();
-        while(cursor.moveToNext()) {
+        while (cursor.moveToNext()) {
             Item item;
             int id = cursor.getInt(cursor.getColumnIndexOrThrow(ITEM_ID));
             String name = cursor.getString(cursor.getColumnIndexOrThrow(ITEM_NAME));

@@ -29,12 +29,11 @@
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
                 android:fontFamily="@font/opensansregular"
-                android:text="Your Transcation History"
+                android:text="Your Transaction History"
                 android:textColor="#FFFFFF"
                 android:layout_marginLeft="10sp"
                 android:textSize="25sp"
-                android:layout_marginTop="30sp"
-                />
+                android:layout_marginTop="30sp" />
 
             <TextView
                 android:id="@+id/judulPertanyaan"
@@ -45,8 +44,7 @@
                 android:layout_marginLeft="10sp"
                 android:textSize="20sp"
                 android:layout_marginTop="20sp"
-                android:fontFamily="@font/opensansregular"
-                />
+                android:fontFamily="@font/opensansregular" />
 
             <Button
                 android:id="@+id/btnClearHistory"
@@ -122,8 +120,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_trans"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            />
+            android:layout_height="match_parent" />
     </LinearLayout>
 
 

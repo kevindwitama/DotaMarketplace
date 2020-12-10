@@ -21,7 +21,7 @@ import com.ba11groupj.madproject.models.User;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class BuyItemActivity extends AppCompatActivity  {
+public class BuyItemActivity extends AppCompatActivity {
 
     TextView txtVwItemName, txtVwItemPrice, txtVwItemStock;
     // txtVwCurrentBal;
@@ -96,9 +96,9 @@ public class BuyItemActivity extends AppCompatActivity  {
             public void onClick(View v) {
                 String strItemQty = fldQty.getText().toString().trim();
 
-                if(!chkNumeric(strItemQty)) {
+                if (!chkNumeric(strItemQty)) {
                     Toast.makeText(BuyItemActivity.this, "Quantity must be numeric!", Toast.LENGTH_SHORT).show();
-                }else if(!strItemQty.isEmpty()) {
+                } else if (!strItemQty.isEmpty()) {
                     int itemQty = Integer.parseInt(strItemQty);
 
                     if (itemQty > itemStock) {

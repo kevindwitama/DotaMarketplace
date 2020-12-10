@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorAccent"
-    >
+    android:background="@color/colorAccent">
 
     <!-- Main Form terdapat list view dimana jika user ingin melihat salah satu item
         maka akan muncul detail list itemnya
@@ -20,8 +18,7 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#008080"
-            >
+            android:background="#008080">
 
             <!-- Gambar Item (Item Image) -->
             <ImageView
@@ -30,8 +27,7 @@
                 android:layout_height="129dp"
                 android:src="@drawable/gaming"
                 android:layout_marginTop="2dp"
-                android:scaleType="centerCrop"
-                />
+                android:scaleType="centerCrop" />
 
             <!-- Nama Item (Name of Item) -->
             <TextView
@@ -44,8 +40,7 @@
                 android:textStyle="bold"
                 android:textSize="24sp"
                 android:layout_toRightOf="@id/imgGameBuy"
-                android:paddingLeft="10sp"
-                />
+                android:paddingLeft="10sp" />
 
             <!-- Stok Item (Stock of Item) -->
             <TextView
@@ -60,8 +55,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_below="@id/lblItemName"
                 android:layout_toRightOf="@id/imgGameBuy"
-                android:paddingLeft="10sp"
-                />
+                android:paddingLeft="10sp" />
 
             <!-- Harga Item (Price of Item) -->
             <TextView
@@ -76,8 +70,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_below="@id/lbltemStock"
                 android:layout_toRightOf="@id/imgGameBuy"
-                android:paddingLeft="10sp"
-                />
+                android:paddingLeft="10sp" />
 
             <!-- Button Buy-->
             <Button

@@ -37,7 +37,7 @@ public class RegisterFragment extends Fragment {
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_register,container, false);
+        View view = inflater.inflate(R.layout.fragment_register, container, false);
         mainAct = ((MainActivity) getActivity());
         database = new DBHelper(this.getContext());
         userUtils = new UserUtils();

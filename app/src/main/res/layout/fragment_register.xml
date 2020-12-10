@@ -1,224 +1,206 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.activities.MainActivity"
     android:orientation="vertical"
-    android:background="@color/colorAccent"
-    >
-        <LinearLayout android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
+    android:background="@color/colorAccent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <LinearLayout
             android:id="@+id/judulRegister"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:layout_marginTop="30dp"
-            >
+            android:layout_marginTop="30dp">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="REGISTER"
-                    android:textSize="35sp"
-                    android:gravity="center"
-                    android:textColor="#D3D3D3"
-                    android:fontFamily="@font/ralewaybold"
-                    />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/ralewaybold"
+                android:gravity="center"
+                android:text="REGISTER"
+                android:textColor="#D3D3D3"
+                android:textSize="35sp" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:layout_margin="20dp"
             android:layout_weight="2"
             android:orientation="vertical">
 
-                <!-- Fullname -->
-                <EditText
-                    android:id="@+id/txtName"
-                    android:layout_margin="20dp"
-                    android:layout_marginTop="25dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:layout_marginStart="40dp"
-                    android:layout_marginEnd="40dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="20dp"
-                    android:paddingTop="5dp"
-                    android:paddingLeft="10dp"
-                    android:inputType="text"
-                    android:paddingBottom="5dp"
-                    android:background="@drawable/textfield"
-                    android:hint="Fullname"
-                    />
+            <!-- Fullname -->
+            <EditText
+                android:id="@+id/txtName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="40dp"
+                android:background="@drawable/textfield"
+                android:hint="Fullname"
+                android:inputType="text"
+                android:paddingLeft="10dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:textSize="20sp" />
 
-                <!-- Username -->
-                <EditText
-                    android:id="@+id/txtRegUsername"
-                    android:layout_margin="20dp"
-                    android:layout_marginTop="25dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:layout_marginStart="40dp"
-                    android:layout_marginEnd="40dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="20dp"
-                    android:paddingTop="5dp"
-                    android:paddingLeft="10dp"
-                    android:inputType="text"
-                    android:paddingBottom="5dp"
-                    android:background="@drawable/textfield"
-                    android:hint="Username"
-                    />
+            <!-- Username -->
+            <EditText
+                android:id="@+id/txtRegUsername"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="40dp"
+                android:background="@drawable/textfield"
+                android:hint="Username"
+                android:inputType="text"
+                android:paddingLeft="10dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:textSize="20sp" />
 
-                <!-- Password -->
-                <EditText
-                    android:id="@+id/txtRegPassword"
-                    android:layout_margin="20dp"
-                    android:layout_marginTop="25dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:layout_marginStart="40dp"
-                    android:layout_marginEnd="40dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="20dp"
-                    android:paddingTop="5dp"
-                    android:paddingLeft="10dp"
-                    android:inputType="textPassword"
-                    android:paddingBottom="5dp"
-                    android:background="@drawable/textfield"
-                    android:hint="Password"
-                    />
+            <!-- Password -->
+            <EditText
+                android:id="@+id/txtRegPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="40dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/textfield"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:paddingLeft="10dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:textSize="20sp" />
 
-                <!-- Confirm Password -->
-                <EditText
-                    android:id="@+id/txtConfPass"
-                    android:layout_margin="20dp"
-                    android:layout_marginTop="25dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:layout_marginStart="40dp"
-                    android:layout_marginEnd="40dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="20dp"
-                    android:paddingTop="5dp"
-                    android:paddingLeft="10dp"
-                    android:inputType="textPassword"
-                    android:paddingBottom="5dp"
-                    android:background="@drawable/textfield"
-                    android:hint="Confirm Password"
-                    />
+            <!-- Confirm Password -->
+            <EditText
+                android:id="@+id/txtConfPass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="40dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/textfield"
+                android:hint="Confirm Password"
+                android:inputType="textPassword"
+                android:paddingLeft="10dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:textSize="20sp" />
 
-                <!-- Phone Number -->
-                <EditText
-                    android:id="@+id/txtPhoneNum"
-                    android:layout_margin="20dp"
-                    android:layout_marginTop="25dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:layout_marginStart="40dp"
-                    android:layout_marginEnd="40dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="20dp"
-                    android:paddingTop="5dp"
-                    android:paddingLeft="10dp"
-                    android:inputType="phone"
-                    android:paddingBottom="5dp"
-                    android:background="@drawable/textfield"
-                    android:hint="Phone Number"
-                    />
+            <!-- Phone Number -->
+            <EditText
+                android:id="@+id/txtPhoneNum"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="40dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/textfield"
+                android:hint="Phone Number"
+                android:inputType="phone"
+                android:paddingLeft="10dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:textSize="20sp" />
 
-                <!-- Gender -->
-                <RadioGroup
-                    android:id="@+id/rdGender"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="25dp"
-                    android:orientation="horizontal"
-                    >
+            <!-- Gender -->
+            <RadioGroup
+                android:id="@+id/rdGender"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:orientation="horizontal">
 
-                        <!-- Gender Male -->
-                        <RadioButton
-                            android:id="@+id/MaleGender"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:buttonTint="@android:color/white"
-                            android:fontFamily="@font/montserratbold"
-                            android:text="Male"
-                            android:textColor="@android:color/white"
-                            android:textSize="20sp"
-                            android:layout_marginLeft="20dp"
-                            />
-
-                        <!-- Gender Female -->
-                        <RadioButton
-                            android:layout_marginLeft="30dp"
-                            android:id="@+id/FemaleGender"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:buttonTint="@android:color/white"
-                            android:fontFamily="@font/montserratbold"
-                            android:text="Female"
-                            android:textColor="@android:color/white"
-                            android:textSize="20sp"
-                            />
-                </RadioGroup>
-
-                <!-- Agreement -->
-                <CheckBox
-                    android:id="@+id/chkTerms"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="25dp"
+                <!-- Gender Male -->
+                <RadioButton
+                    android:id="@+id/MaleGender"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginLeft="20dp"
                     android:buttonTint="@android:color/white"
-                    android:text="I agree and I am 13 years of age or older"
-                    android:textColor="@android:color/white"
                     android:fontFamily="@font/montserratbold"
-                    android:textSize="20sp"
-                    android:textStyle="normal"
-                    />
-
-                <!-- Button Register-->
-                <Button
-                    android:id="@+id/btnRegister"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="REGISTER"
-                    android:gravity="center"
-                    android:layout_marginStart="80dp"
-                    android:layout_marginEnd="80dp"
-                    android:layout_marginTop="40dp"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="20dp"
-                    android:textStyle="bold"
-                    android:textSize="22sp"
+                    android:text="Male"
                     android:textColor="@android:color/white"
-                    android:fontFamily="@font/ralewaybold"
-                    android:background="@drawable/buttondirectregister"
-                    />
+                    android:textSize="20sp" />
 
-                <!-- Tahun Buat >> Copyright to Natasha Anugrah 2201836330 -->
-                <RelativeLayout
-                    android:id="@+id/judulperusahaan"
+                <!-- Gender Female -->
+                <RadioButton
+                    android:id="@+id/FemaleGender"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="35dp"
-                    />
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="30dp"
+                    android:buttonTint="@android:color/white"
+                    android:fontFamily="@font/montserratbold"
+                    android:text="Female"
+                    android:textColor="@android:color/white"
+                    android:textSize="20sp" />
+            </RadioGroup>
+
+            <!-- Agreement -->
+            <CheckBox
+                android:id="@+id/chkTerms"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="25dp"
+                android:buttonTint="@android:color/white"
+                android:fontFamily="@font/montserratbold"
+                android:text="I agree and I am 13 years of age or older"
+                android:textColor="@android:color/white"
+                android:textSize="20sp"
+                android:textStyle="normal" />
+
+            <!-- Button Register-->
+            <Button
+                android:id="@+id/btnRegister"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="80dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="80dp"
+                android:background="@drawable/buttondirectregister"
+                android:fontFamily="@font/ralewaybold"
+                android:gravity="center"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:text="REGISTER"
+                android:textColor="@android:color/white"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <!-- Tahun Buat >> Copyright to Natasha Anugrah 2201836330 -->
+            <RelativeLayout
+                android:id="@+id/judulperusahaan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="35dp" />
 
 
         </LinearLayout>
 
-        </LinearLayout>
+    </LinearLayout>
 </ScrollView>
