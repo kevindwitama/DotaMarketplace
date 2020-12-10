@@ -26,10 +26,10 @@ public class RegisterFragment extends Fragment {
     Button btnRegister;
     CheckBox chkTerms;
 
-    MainActivity mainAct = ((MainActivity) getActivity());
+    MainActivity mainAct;
 
     DBHelper database;
-    UserUtils validationUtils;
+    UserUtils userUtils;
 
     @Nullable
     @Override
@@ -38,7 +38,9 @@ public class RegisterFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_register,container, false);
+        mainAct = ((MainActivity) getActivity());
         database = new DBHelper(this.getContext());
+        userUtils = new UserUtils();
 
         fldFullname = view.findViewById(R.id.txtName);
         fldUsername = view.findViewById(R.id.txtRegUsername);
@@ -64,7 +66,7 @@ public class RegisterFragment extends Fragment {
                     Toast.makeText(getActivity(), "Full Name must consist of two words!", Toast.LENGTH_LONG).show();
                 } else if (username.isEmpty()) {
                     Toast.makeText(getActivity(), "Username must be filled in!", Toast.LENGTH_SHORT).show();
-                } else if (validationUtils.checkIfRegistered(username, password, database)) {
+                } else if (userUtils.checkIfRegistered(username, password, database)) {
                     Toast.makeText(getActivity(), "Username already registered!", Toast.LENGTH_SHORT).show();
                 } else if (username.length() < 5 || username.length() > 25) {
                     Toast.makeText(getActivity(), "Username must be between 5 and 25 characters!", Toast.LENGTH_LONG).show();
