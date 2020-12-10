@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.activities.SellerLocationActivity"></activity>
+        <activity android:name=".ui.activities.SellerLocationActivity" />
         <activity android:name=".ui.activities.HistoryActivity" />
         <activity android:name=".ui.activities.TopUpActivity" />
         <activity android:name=".ui.activities.MainFormActivity" />
