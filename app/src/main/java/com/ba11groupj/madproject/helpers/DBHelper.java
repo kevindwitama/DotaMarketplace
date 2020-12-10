@@ -247,9 +247,16 @@ public class DBHelper extends SQLiteOpenHelper {
         db.update(TABLE_USERS, cv, USER_ID + " = ?", new String[]{userId});
     }
 
-    // clear table
+    // clear table transaction
     public void clearTransactionHistory() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("delete from " + TABLE_TRANSACTIONS);
+    }
+
+    // reset table user
+    public void resetUserTable() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("delete from " + TABLE_USERS);
+        insertNewUser("admin", "admin", "123", "+62123", false, 1000000);
     }
 }
