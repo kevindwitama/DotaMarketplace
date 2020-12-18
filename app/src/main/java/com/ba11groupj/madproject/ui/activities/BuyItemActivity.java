@@ -8,6 +8,7 @@ import android.telephony.SmsManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +28,7 @@ public class BuyItemActivity extends AppCompatActivity {
 
     TextView txtVwItemName, txtVwItemPrice, txtVwItemStock;
     // txtVwCurrentBal;
+    ImageView imgProduct;
     EditText fldQty;
     Button btnSellerLoc, btnCheckout;
 
@@ -34,6 +36,7 @@ public class BuyItemActivity extends AppCompatActivity {
     Item item;
 
     int itemId;
+    int imgId;
     String itemName;
     int itemPrice;
     int itemStock;
@@ -47,6 +50,7 @@ public class BuyItemActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         itemId = bundle.getInt("itemId");
         userId = bundle.getInt("userId");
+        imgId = bundle.getInt("imgId");
 
         item = getItemData(itemId);
         user = getUserData(userId);
@@ -63,6 +67,7 @@ public class BuyItemActivity extends AppCompatActivity {
         txtVwItemPrice = findViewById(R.id.txtVwItemPrice);
         txtVwItemStock = findViewById(R.id.txtVwItemStock);
 //        txtVwCurrentBal = findViewById(R.id.txtVwCurrentBalance);
+        imgProduct = findViewById(R.id.imageproduct);
 
         fldQty = findViewById(R.id.txtQty);
 
@@ -83,6 +88,7 @@ public class BuyItemActivity extends AppCompatActivity {
         txtVwItemPrice.setText("Rp " + itemPrice);
         txtVwItemStock.setText("Stock: " + itemStock);
 //        txtVwCurrentBal.setText("Current Balance: Rp " + userBalance);
+        imgProduct.setImageResource(imgId);
 
         btnSellerLoc.setOnClickListener(new View.OnClickListener() {
             @Override
