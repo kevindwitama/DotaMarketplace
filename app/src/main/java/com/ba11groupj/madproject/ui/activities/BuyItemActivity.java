@@ -2,6 +2,7 @@ package com.ba11groupj.madproject.ui.activities;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.ba11groupj.madproject.R;
 import com.ba11groupj.madproject.helpers.DBHelper;
@@ -121,10 +123,14 @@ public class BuyItemActivity extends AppCompatActivity {
                         database.updateItemStock(item, itemStock - itemQty);
                         database.updateUserBalance(user, userBalance - (itemPrice * itemQty));
 
-                        Toast.makeText(BuyItemActivity.this, "Please wait...", Toast.LENGTH_SHORT).show();
-
                         String smsMsg = "Transaction success!";
-                        SmsManager.getDefault().sendTextMessage("5554", null, smsMsg, null, null);
+
+                        if (ContextCompat.checkSelfPermission(BuyItemActivity.this, Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED) {
+                            Toast.makeText(BuyItemActivity.this, "Please wait for SMS confirmation...", Toast.LENGTH_LONG).show();
+                            SmsManager.getDefault().sendTextMessage("5554", null, smsMsg, null, null);
+                        } else {
+                            Toast.makeText(BuyItemActivity.this, smsMsg, Toast.LENGTH_SHORT).show();
+                        }
 
                         Intent intent = new Intent(BuyItemActivity.this, MainFormActivity.class);
                         Bundle bundle = new Bundle();
@@ -178,6 +184,6 @@ public class BuyItemActivity extends AppCompatActivity {
     }
 
     private void requestSmsPermission() {
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECEIVE_SMS, Manifest.permission.SEND_SMS}, 0);
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SEND_SMS}, 0);
     }
 }
