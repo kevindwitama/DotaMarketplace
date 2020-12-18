@@ -23,9 +23,9 @@ import java.util.ArrayList;
 
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder> {
 
-    Context mCtx;
-    ArrayList<Item> arrItem;
-    User user;
+    final Context mCtx;
+    final ArrayList<Item> arrItem;
+    final User user;
 
     DBHelper database;
 
@@ -94,13 +94,13 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
         return arrItem.size();
     }
 
-    class ItemViewHolder extends RecyclerView.ViewHolder {
+    static class ItemViewHolder extends RecyclerView.ViewHolder {
 
-        TextView lblItemName;
-        TextView lblItemPrice;
-        TextView lblItemStock;
-        ImageView imageProducts;
-        Button btnBuy;
+        final TextView lblItemName;
+        final TextView lblItemPrice;
+        final TextView lblItemStock;
+        final ImageView imageProducts;
+        final Button btnBuy;
 
         public ItemViewHolder(@NonNull View itemView) {
             super(itemView);

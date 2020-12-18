@@ -42,9 +42,8 @@ public class BuyItemActivity extends AppCompatActivity {
     int itemStock;
     int userId;
     float userBalance;
-    int subtotal;
 
-    DBHelper database = new DBHelper(this);
+    final DBHelper database = new DBHelper(this);
 
     void initData() {
         Bundle bundle = getIntent().getExtras();
@@ -59,14 +58,12 @@ public class BuyItemActivity extends AppCompatActivity {
         itemPrice = item.getPrice();
         itemStock = item.getStock();
         userBalance = user.getBalance();
-        subtotal = 0;
     }
 
     void init() {
         txtVwItemName = findViewById(R.id.txtVwItemName);
         txtVwItemPrice = findViewById(R.id.txtVwItemPrice);
         txtVwItemStock = findViewById(R.id.txtVwItemStock);
-//        txtVwCurrentBal = findViewById(R.id.txtVwCurrentBalance);
         imgProduct = findViewById(R.id.imageproduct);
 
         fldQty = findViewById(R.id.txtQty);
@@ -87,7 +84,6 @@ public class BuyItemActivity extends AppCompatActivity {
         txtVwItemName.setText(itemName);
         txtVwItemPrice.setText("Rp " + itemPrice);
         txtVwItemStock.setText("Stock: " + itemStock);
-//        txtVwCurrentBal.setText("Current Balance: Rp " + userBalance);
         imgProduct.setImageResource(imgId);
 
         btnSellerLoc.setOnClickListener(new View.OnClickListener() {

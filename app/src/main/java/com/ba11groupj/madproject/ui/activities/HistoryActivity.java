@@ -27,7 +27,7 @@ public class HistoryActivity extends AppCompatActivity {
 
     Bundle bundle;
 
-    DBHelper database = new DBHelper(this);
+    final DBHelper database = new DBHelper(this);
 
     void initData() {
         bundle = getIntent().getExtras();

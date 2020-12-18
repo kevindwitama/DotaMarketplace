@@ -101,7 +101,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     // insert data user
-    public boolean insertNewUser(String username, String fullName, String password, String phoneNum, boolean gender, float balance) {
+    public void insertNewUser(String username, String fullName, String password, String phoneNum, boolean gender, float balance) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(USERNAME, username);
@@ -112,11 +112,10 @@ public class DBHelper extends SQLiteOpenHelper {
         cv.put(USER_BALANCE, balance);
 
         long result = db.insert(TABLE_USERS, null, cv);
-        return result != -1;
     }
 
     // insert data item
-    public boolean insertNewItem(String name, int price, int stock, float latitude, float longitude) {
+    public void insertNewItem(String name, int price, int stock, float latitude, float longitude) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(ITEM_NAME, name);
@@ -126,11 +125,10 @@ public class DBHelper extends SQLiteOpenHelper {
         cv.put(ITEM_LONG, longitude);
 
         long result = db.insert(TABLE_ITEMS, null, cv);
-        return result != -1;
     }
 
     // insert data transaction
-    public boolean insertNewTransaction(int userId, int itemId, int qty, String date) {
+    public void insertNewTransaction(int userId, int itemId, int qty, String date) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(TRANSACTION_USER, userId);
@@ -139,7 +137,6 @@ public class DBHelper extends SQLiteOpenHelper {
         cv.put(TRANSACTION_DATE, String.valueOf(date));
 
         long result = db.insert(TABLE_TRANSACTIONS, null, cv);
-        return result != -1;
     }
 
     // return semua users dalam bentuk list

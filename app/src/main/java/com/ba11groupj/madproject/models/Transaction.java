@@ -1,11 +1,11 @@
 package com.ba11groupj.madproject.models;
 
 public class Transaction {
-    int transactionId;
-    int userId;
-    int itemId;
-    int itemQty;
-    String transactionDate;
+    final int transactionId;
+    final int userId;
+    final int itemId;
+    final int itemQty;
+    final String transactionDate;
 
     public Transaction(int transactionId, int userId, int itemId, int itemQty, String transactionDate) {
         this.transactionId = transactionId;

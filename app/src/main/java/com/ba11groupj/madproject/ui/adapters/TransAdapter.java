@@ -19,11 +19,11 @@ import java.util.ArrayList;
 
 public class TransAdapter extends RecyclerView.Adapter<TransAdapter.TransViewHolder> {
 
-    Context mCtx;
-    ArrayList<Transaction> arrTrans;
-    User user;
+    final Context mCtx;
+    final ArrayList<Transaction> arrTrans;
+    final User user;
 
-    DBHelper database;
+    final DBHelper database;
 
     public TransAdapter(Context mCtx, User user) {
         this.mCtx = mCtx;
@@ -65,12 +65,12 @@ public class TransAdapter extends RecyclerView.Adapter<TransAdapter.TransViewHol
         return arrTrans.size();
     }
 
-    class TransViewHolder extends RecyclerView.ViewHolder {
+    static class TransViewHolder extends RecyclerView.ViewHolder {
 
-        TextView lblTransDate;
-        TextView lblItemName;
-        TextView lblItemQty;
-        TextView lblMinBalance;
+        final TextView lblTransDate;
+        final TextView lblItemName;
+        final TextView lblItemQty;
+        final TextView lblMinBalance;
 
         public TransViewHolder(@NonNull View transView) {
             super(transView);

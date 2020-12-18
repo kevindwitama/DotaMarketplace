@@ -10,12 +10,5 @@ public class   DataHelper {
 
     public static ArrayList<Transaction> arrTrans = new ArrayList<>();
 
-    public static void updateArray(Transaction trans) {
-        for (int i = 0; i < arrTrans.size(); i++) {
-            if (arrTrans.get(i).getUserId() == (trans.getUserId())) {
-                arrTrans.set(i, trans);
-            }
-        }
-    }
 }
 

@@ -1,7 +1,7 @@
 package com.ba11groupj.madproject.models;
 
 public class Item {
-    private int id;
+    private final int id;
     private final String name;
     private final int price;
     private final int stock;
@@ -19,10 +19,6 @@ public class Item {
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getName() {
