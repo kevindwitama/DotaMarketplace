@@ -2,11 +2,11 @@ package com.ba11groupj.madproject.models;
 
 public class Item {
     private int id;
-    private String name;
-    private int price;
-    private int stock;
-    private float latitude;
-    private float longitude;
+    private final String name;
+    private final int price;
+    private final int stock;
+    private final float latitude;
+    private final float longitude;
 
     public Item(int id, String name, int price, int stock, float latitude, float longitude) {
         this.id = id;
@@ -37,8 +37,12 @@ public class Item {
         return stock;
     }
 
-    public void setStock(int stock) {
-        this.stock = stock;
+    public float getLatitude() {
+        return latitude;
+    }
+
+    public float getLongitude() {
+        return longitude;
     }
 
 }

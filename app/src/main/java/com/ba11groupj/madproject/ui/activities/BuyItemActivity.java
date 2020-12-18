@@ -86,6 +86,14 @@ public class BuyItemActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(BuyItemActivity.this, SellerLocationActivity.class);
+                Bundle bundle = new Bundle();
+
+                float latitude = item.getLatitude();
+                float longitude = item.getLongitude();
+
+                bundle.putFloat("lat", latitude);
+                bundle.putFloat("long", longitude);
+                intent.putExtras(bundle);
                 startActivity(intent);
             }
         });
