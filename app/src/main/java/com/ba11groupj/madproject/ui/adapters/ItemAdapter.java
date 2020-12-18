@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,7 +20,7 @@ import com.ba11groupj.madproject.ui.activities.BuyItemActivity;
 
 import java.util.ArrayList;
 
-public class ItemAdapter extends RecyclerView.Adapter<ItemViewHolder> {
+public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder> {
 
     Context mCtx;
     ArrayList<Item> arrItem;
@@ -69,5 +71,22 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemViewHolder> {
     @Override
     public int getItemCount() {
         return arrItem.size();
+    }
+
+    class ItemViewHolder extends RecyclerView.ViewHolder {
+
+        TextView lblItemName;
+        TextView lblItemPrice;
+        TextView lblItemStock;
+        Button btnBuy;
+
+        public ItemViewHolder(@NonNull View itemView) {
+            super(itemView);
+
+            lblItemName = itemView.findViewById(R.id.lblItemName);
+            lblItemPrice = itemView.findViewById(R.id.lblItemPrice);
+            lblItemStock = itemView.findViewById(R.id.lbltemStock);
+            btnBuy = itemView.findViewById(R.id.btnBuyItem);
+        }
     }
 }

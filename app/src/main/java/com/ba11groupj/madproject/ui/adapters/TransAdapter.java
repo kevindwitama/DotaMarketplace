@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,7 +17,7 @@ import com.ba11groupj.madproject.models.User;
 
 import java.util.ArrayList;
 
-public class TransAdapter extends RecyclerView.Adapter<TransViewHolder> {
+public class TransAdapter extends RecyclerView.Adapter<TransAdapter.TransViewHolder> {
 
     Context mCtx;
     ArrayList<Transaction> arrTrans;
@@ -62,6 +63,23 @@ public class TransAdapter extends RecyclerView.Adapter<TransViewHolder> {
     @Override
     public int getItemCount() {
         return arrTrans.size();
+    }
+
+    class TransViewHolder extends RecyclerView.ViewHolder {
+
+        TextView lblTransDate;
+        TextView lblItemName;
+        TextView lblItemQty;
+        TextView lblMinBalance;
+
+        public TransViewHolder(@NonNull View transView) {
+            super(transView);
+
+            lblTransDate = transView.findViewById(R.id.lblTransDate);
+            lblItemName = transView.findViewById(R.id.lblItemName);
+            lblItemQty = transView.findViewById(R.id.lblItemQty);
+            lblMinBalance = transView.findViewById(R.id.lblMinBalance);
+        }
     }
 
 }
