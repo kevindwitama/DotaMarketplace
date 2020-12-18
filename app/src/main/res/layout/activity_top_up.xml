@@ -15,6 +15,7 @@
         android:layout_marginStart="5dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="14dp"
+        android:baselineAligned="false"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -63,6 +64,7 @@
         android:layout_marginStart="5dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="14dp"
+        android:baselineAligned="false"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -117,6 +119,7 @@
             android:paddingLeft="10dp"
             android:textColor="@android:color/black"
             android:textSize="20sp"
+            android:inputType="number"
             android:textStyle="normal" />
 
     </LinearLayout>
@@ -141,6 +144,7 @@
             android:paddingLeft="10dp"
             android:textColor="@android:color/black"
             android:textSize="20sp"
+            android:inputType="textPassword"
             android:textStyle="normal" />
     </LinearLayout>
 

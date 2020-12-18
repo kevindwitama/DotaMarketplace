@@ -94,7 +94,6 @@
                     android:layout_column="0"
                     android:layout_marginTop="20dp"
                     android:layout_marginBottom="10dp"
-                    android:layout_weight="1"
                     android:fontFamily="@font/montserratbold"
                     android:text="Description"
                     android:textAlignment="center"
@@ -170,7 +169,7 @@
         <!-- Input Quantity that user want to buy it-->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginTop="5dp"
             android:layout_weight="1"
             android:orientation="vertical"
@@ -190,6 +189,7 @@
                     android:hint="Input Quantity"
                     android:paddingLeft="10dp"
                     android:textColor="#333333"
+                    android:inputType="number"
                     android:textSize="20sp" />
             </LinearLayout>
 
