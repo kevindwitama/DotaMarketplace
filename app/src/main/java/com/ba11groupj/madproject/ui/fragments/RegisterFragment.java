@@ -61,7 +61,7 @@ public class RegisterFragment extends Fragment {
                 String phoneNum = fldPhoneNum.getText().toString().trim();
 
                 if (fullName.isEmpty()) {
-                    Toast.makeText(getActivity(), "Name must be filled in!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Full Name must be filled in!", Toast.LENGTH_SHORT).show();
                 } else if (!fullName.contains(" ")) {
                     Toast.makeText(getActivity(), "Full Name must consist of two words!", Toast.LENGTH_LONG).show();
                 } else if (username.isEmpty()) {
@@ -77,7 +77,7 @@ public class RegisterFragment extends Fragment {
                 } else if (password.length() > 15) {
                     Toast.makeText(getActivity(), "Password must be less than 15 characters!", Toast.LENGTH_SHORT).show();
                 } else if (!confPass.equals(password)) {
-                    Toast.makeText(getActivity(), "Passwords do not match!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Confirm Passwords do not match with Password!", Toast.LENGTH_SHORT).show();
                 } else if (!phoneNum.startsWith("+62")) {
                     Toast.makeText(getActivity(), "Phone number must start with +62!", Toast.LENGTH_SHORT).show();
                 } else if (!validatePhoneNum(phoneNum)) {

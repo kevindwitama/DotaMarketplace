@@ -6,12 +6,20 @@
     android:layout_height="match_parent"
     tools:context=".ui.activities.SellerLocationActivity">
 
-    <ImageView
+    <!--<ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#FFFFFF"
         app:srcCompat="@drawable/maps"
         tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="33dp" />
+        tools:layout_editor_absoluteY="33dp" /> -->
+
+    <fragment
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/googleMaps"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
