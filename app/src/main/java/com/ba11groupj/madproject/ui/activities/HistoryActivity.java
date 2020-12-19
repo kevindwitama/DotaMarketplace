@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.ba11groupj.madproject.R;
 import com.ba11groupj.madproject.helpers.DBHelper;
 import com.ba11groupj.madproject.helpers.DataHelper;
-import com.ba11groupj.madproject.models.User;
 import com.ba11groupj.madproject.ui.adapters.TransAdapter;
 
 public class HistoryActivity extends AppCompatActivity {
@@ -22,7 +21,6 @@ public class HistoryActivity extends AppCompatActivity {
 
     Button btnClear;
 
-    User user;
     int userId;
 
     Bundle bundle;
@@ -38,7 +36,7 @@ public class HistoryActivity extends AppCompatActivity {
 
     void init() {
         rvTrans = findViewById(R.id.rv_trans);
-        myAdapter = new TransAdapter(this, user);
+        myAdapter = new TransAdapter(this, userId);
         layoutManager = new LinearLayoutManager(this);
 
         rvTrans.setLayoutManager(layoutManager);
@@ -58,7 +56,7 @@ public class HistoryActivity extends AppCompatActivity {
         btnClear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                database.clearTransactionHistory();
+                database.clearTransactionHistory(userId);
                 DataHelper.arrTrans.clear();
                 myAdapter.notifyDataSetChanged();
             }

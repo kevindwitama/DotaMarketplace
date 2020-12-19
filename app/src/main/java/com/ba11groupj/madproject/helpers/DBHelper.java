@@ -185,15 +185,14 @@ public class DBHelper extends SQLiteOpenHelper {
         return items;
     }
 
-    // return semua transactions dalam bentuk list
-    public ArrayList<Transaction> fetchTransactions() {
+    // return semua transactions milik satu user dalam bentuk list
+    public ArrayList<Transaction> fetchTransactions(int userId) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_TRANSACTIONS, null);
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_TRANSACTIONS + " WHERE " + USER_ID + " = " + userId, null);
         ArrayList<Transaction> transactions = new ArrayList<>();
         while (cursor.moveToNext()) {
             Transaction t;
             int transId = cursor.getInt(cursor.getColumnIndexOrThrow(TRANSACTION_ID));
-            int userId = cursor.getInt(cursor.getColumnIndexOrThrow(TRANSACTION_USER));
             int itemId = cursor.getInt(cursor.getColumnIndexOrThrow(TRANSACTION_ITEM));
             int qty = cursor.getInt(cursor.getColumnIndexOrThrow(TRANSACTION_QTY));
             String transDate = cursor.getString(cursor.getColumnIndexOrThrow(TRANSACTION_DATE));
@@ -247,13 +246,13 @@ public class DBHelper extends SQLiteOpenHelper {
         db.update(TABLE_USERS, cv, USER_ID + " = ?", new String[]{userId});
     }
 
-    // clear table transaction
-    public void clearTransactionHistory() {
+    // clear transaction milik satu user
+    public void clearTransactionHistory(int userId) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("delete from " + TABLE_TRANSACTIONS);
+        db.execSQL("delete from " + TABLE_TRANSACTIONS + " WHERE " + USER_ID + " = " + userId);
     }
 
-    // reset table user
+    // reset table user dan isi dgn data admin
     public void resetUserTable() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("delete from " + TABLE_USERS);

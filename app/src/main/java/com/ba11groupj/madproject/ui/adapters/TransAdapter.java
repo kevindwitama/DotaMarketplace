@@ -13,7 +13,6 @@ import com.ba11groupj.madproject.R;
 import com.ba11groupj.madproject.helpers.DBHelper;
 import com.ba11groupj.madproject.helpers.DataHelper;
 import com.ba11groupj.madproject.models.Transaction;
-import com.ba11groupj.madproject.models.User;
 
 import java.util.ArrayList;
 
@@ -21,16 +20,15 @@ public class TransAdapter extends RecyclerView.Adapter<TransAdapter.TransViewHol
 
     final Context mCtx;
     final ArrayList<Transaction> arrTrans;
-    final User user;
 
     final DBHelper database;
 
-    public TransAdapter(Context mCtx, User user) {
+    public TransAdapter(Context mCtx, int userId) {
         this.mCtx = mCtx;
+
         database = new DBHelper(mCtx);
-        DataHelper.arrTrans = database.fetchTransactions(); // perlu data helper biar bisa auto clear
+        DataHelper.arrTrans = database.fetchTransactions(userId);
         arrTrans = DataHelper.arrTrans;
-        this.user = user;
     }
 
     @NonNull
