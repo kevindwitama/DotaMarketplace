@@ -84,7 +84,7 @@ public class RegisterFragment extends Fragment {
                 } else if (password.isEmpty()) {
                     Toast.makeText(getActivity(), "Password must be filled in!", Toast.LENGTH_SHORT).show();
                 } else if (!validatePass(password)) {
-                    Toast.makeText(getActivity(), "Password must contain uppercase, lowercase, and numeric characters!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), "Password must contain uppercase, special, and numeric characters!", Toast.LENGTH_LONG).show();
                 } else if (password.length() > 15) {
                     Toast.makeText(getActivity(), "Password must be less than 15 characters!", Toast.LENGTH_SHORT).show();
                 } else if (!confPass.equals(password)) {
@@ -117,7 +117,7 @@ public class RegisterFragment extends Fragment {
         boolean containsNum = false;
 
         for (char c : password.toCharArray()) {
-            if (Character.isLetter(c)) {
+            if (Character.isUpperCase(c)) {
                 containsUpper = true;
             } else if (!Character.isLetterOrDigit(c)) {
                 containsSpecial = true;
