@@ -70,8 +70,8 @@ public class MainActivity extends AppCompatActivity {
                         String name = obj.getString("name");
                         int price = obj.getInt("price");
                         int stock = obj.getInt("stock");
-                        float latitude = (float) obj.getDouble("latitude");
-                        float longitude = (float) obj.getDouble("longitude");
+                        double latitude = obj.getDouble("latitude");
+                        double longitude = obj.getDouble("longitude");
 
                         database.insertNewItem(name, price, stock, latitude, longitude);
                     } catch (JSONException e) {

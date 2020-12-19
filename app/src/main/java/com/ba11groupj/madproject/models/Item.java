@@ -5,10 +5,10 @@ public class Item {
     private final String name;
     private final int price;
     private final int stock;
-    private final float latitude;
-    private final float longitude;
+    private final double latitude;
+    private final double longitude;
 
-    public Item(int id, String name, int price, int stock, float latitude, float longitude) {
+    public Item(int id, String name, int price, int stock, double latitude, double longitude) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -33,11 +33,11 @@ public class Item {
         return stock;
     }
 
-    public float getLatitude() {
+    public double getLatitude() {
         return latitude;
     }
 
-    public float getLongitude() {
+    public double getLongitude() {
         return longitude;
     }
 

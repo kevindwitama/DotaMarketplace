@@ -72,8 +72,8 @@ public class DBHelper extends SQLiteOpenHelper {
                 ITEM_NAME + " TEXT," +
                 ITEM_PRICE + " INTEGER," +
                 ITEM_STOCK + " INTEGER," +
-                ITEM_LAT + " FLOAT," +
-                ITEM_LONG + " FLOAT" +
+                ITEM_LAT + " DOUBLE," +
+                ITEM_LONG + " DOUBLE" +
                 ");";
         db.execSQL(query);
 
@@ -104,6 +104,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public void insertNewUser(String username, String fullName, String password, String phoneNum, boolean gender, float balance) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
+
         cv.put(USERNAME, username);
         cv.put(USER_FULLNAME, fullName);
         cv.put(USER_PASS, password);
@@ -111,32 +112,34 @@ public class DBHelper extends SQLiteOpenHelper {
         cv.put(USER_GENDER, gender);
         cv.put(USER_BALANCE, balance);
 
-        long result = db.insert(TABLE_USERS, null, cv);
+        db.insert(TABLE_USERS, null, cv);
     }
 
     // insert data item
-    public void insertNewItem(String name, int price, int stock, float latitude, float longitude) {
+    public void insertNewItem(String name, int price, int stock, double latitude, double longitude) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
+
         cv.put(ITEM_NAME, name);
         cv.put(ITEM_PRICE, price);
         cv.put(ITEM_STOCK, stock);
         cv.put(ITEM_LAT, latitude);
         cv.put(ITEM_LONG, longitude);
 
-        long result = db.insert(TABLE_ITEMS, null, cv);
+        db.insert(TABLE_ITEMS, null, cv);
     }
 
     // insert data transaction
     public void insertNewTransaction(int userId, int itemId, int qty, String date) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
+
         cv.put(TRANSACTION_USER, userId);
         cv.put(TRANSACTION_ITEM, itemId);
         cv.put(TRANSACTION_QTY, qty);
         cv.put(TRANSACTION_DATE, String.valueOf(date));
 
-        long result = db.insert(TABLE_TRANSACTIONS, null, cv);
+        db.insert(TABLE_TRANSACTIONS, null, cv);
     }
 
     // return semua users dalam bentuk list
@@ -172,8 +175,8 @@ public class DBHelper extends SQLiteOpenHelper {
             String name = cursor.getString(cursor.getColumnIndexOrThrow(ITEM_NAME));
             int price = cursor.getInt(cursor.getColumnIndexOrThrow(ITEM_PRICE));
             int stock = cursor.getInt(cursor.getColumnIndexOrThrow(ITEM_STOCK));
-            int latitude = cursor.getInt(cursor.getColumnIndexOrThrow(ITEM_LAT));
-            int longitude = cursor.getInt(cursor.getColumnIndexOrThrow(ITEM_LONG));
+            double latitude = cursor.getDouble(cursor.getColumnIndexOrThrow(ITEM_LAT));
+            double longitude = cursor.getDouble(cursor.getColumnIndexOrThrow(ITEM_LONG));
             item = new Item(id, name, price, stock, latitude, longitude);
             items.add(item);
         }

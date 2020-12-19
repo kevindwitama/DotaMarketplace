@@ -92,12 +92,16 @@ public class BuyItemActivity extends AppCompatActivity {
                 Intent intent = new Intent(BuyItemActivity.this, SellerLocationActivity.class);
                 Bundle bundle = new Bundle();
 
-                float latitude = item.getLatitude();
-                float longitude = item.getLongitude();
+                double latitude = item.getLatitude();
+                double longitude = item.getLongitude();
 
-                bundle.putFloat("lat", latitude);
-                bundle.putFloat("long", longitude);
+                bundle.putDouble("lat", latitude);
+                bundle.putDouble("long", longitude);
                 intent.putExtras(bundle);
+
+                String toast = "Lat: " + latitude + ", Long: " + longitude;
+                Toast.makeText(BuyItemActivity.this, toast, Toast.LENGTH_LONG).show();
+
                 startActivity(intent);
             }
         });

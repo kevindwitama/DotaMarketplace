@@ -15,7 +15,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class SellerLocationActivity extends FragmentActivity implements OnMapReadyCallback {
 
     GoogleMap sellerMaps;
-    float latitude, longitude;
+    double latitude, longitude;
     SupportMapFragment mapFragment;
 
     @Override
@@ -39,8 +39,8 @@ public class SellerLocationActivity extends FragmentActivity implements OnMapRea
 
     public void initData() {
         Bundle bundle = getIntent().getExtras();
-        latitude = bundle.getFloat("lat");
-        longitude = bundle.getFloat("long");
+        latitude = bundle.getDouble("lat");
+        longitude = bundle.getDouble("long");
     }
 
     public void init() {
