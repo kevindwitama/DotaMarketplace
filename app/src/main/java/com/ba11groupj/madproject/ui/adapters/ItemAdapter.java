@@ -85,7 +85,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
             case 4:
                 return R.drawable.foto5;
             default:
-                return 0;
+                return R.drawable.foto6;
         }
     }
 
