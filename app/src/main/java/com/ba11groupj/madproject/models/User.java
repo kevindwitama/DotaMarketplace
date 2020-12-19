@@ -18,7 +18,7 @@ public class User {
     private final String password;
     private final String phoneNum;
     private final boolean genderIsM;
-    private float balance;
+    private final float balance;
 
     public int getId() {
         return userId;
@@ -36,7 +36,4 @@ public class User {
         return balance;
     }
 
-    public void setBalance(float balance) {
-        this.balance = balance;
-    }
 }
