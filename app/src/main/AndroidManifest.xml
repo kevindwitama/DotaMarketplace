@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.ba11groupj.madproject">
+    package="com.github.kevindwitama.dotamarketplace">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.SEND_SMS" />
@@ -15,15 +15,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <meta-data android:name="com.google.android.geo.API_KEY"
-            android:value="@string/maps_key"/>
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/maps_key" />
 
-        <activity android:name=".ui.activities.SellerLocationActivity" />
-        <activity android:name=".ui.activities.HistoryActivity" />
-        <activity android:name=".ui.activities.TopUpActivity" />
-        <activity android:name=".ui.activities.MainFormActivity" />
-        <activity android:name=".ui.activities.BuyItemActivity" />
-        <activity android:name=".ui.activities.MainActivity">
+        <activity android:name="com.github.kevindwitama.dotamarketplace.ui.activities.SellerLocationActivity" />
+        <activity android:name="com.github.kevindwitama.dotamarketplace.ui.activities.HistoryActivity" />
+        <activity android:name="com.github.kevindwitama.dotamarketplace.ui.activities.TopUpActivity" />
+        <activity android:name="com.github.kevindwitama.dotamarketplace.ui.activities.MainFormActivity" />
+        <activity android:name="com.github.kevindwitama.dotamarketplace.ui.activities.BuyItemActivity" />
+        <activity android:name="com.github.kevindwitama.dotamarketplace.ui.activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
