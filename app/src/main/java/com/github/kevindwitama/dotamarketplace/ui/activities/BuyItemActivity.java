@@ -1,10 +1,14 @@
 package com.github.kevindwitama.dotamarketplace.ui.activities;
 
 import android.Manifest;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.telephony.SmsManager;
+import android.telephony.SmsMessage;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -56,6 +60,26 @@ public class BuyItemActivity extends AppCompatActivity {
 
     final DBHelper database = new DBHelper(this);
 
+    private final BroadcastReceiver br = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Bundle bundle = intent.getExtras();
+            SmsMessage[] smsMessages;
+
+            if (!bundle.isEmpty()) {
+                Object[] pdus = (Object[]) bundle.get("pdus");
+                smsMessages = new SmsMessage[pdus.length];
+                for (int i = 0; i < pdus.length; i++) {
+                    smsMessages[i] = SmsMessage.createFromPdu((byte[]) pdus[i]);
+                    String msg = smsMessages[i].getMessageBody();
+                    String from = smsMessages[i].getOriginatingAddress();
+
+                    Toast.makeText(BuyItemActivity.this, "Message from " + from + ": " + msg, Toast.LENGTH_LONG).show();
+                }
+            }
+        }
+    };
+
     void initData() {
         Bundle bundle = getIntent().getExtras();
         itemId = bundle.getInt("itemId");
@@ -71,6 +95,8 @@ public class BuyItemActivity extends AppCompatActivity {
         userBalance = user.getBalance();
     }
 
+    IntentFilter intentFilter;
+
     void init() {
         txtVwItemName = findViewById(R.id.txtVwItemName);
         txtVwItemPrice = findViewById(R.id.txtVwItemPrice);
@@ -81,6 +107,33 @@ public class BuyItemActivity extends AppCompatActivity {
 
         btnSellerLoc = findViewById(R.id.btnShowSellerLoc);
         btnCheckout = findViewById(R.id.btnCheckout);
+
+        // check utk sms permission
+        if (ContextCompat.checkSelfPermission(BuyItemActivity.this, Manifest.permission.RECEIVE_SMS) == PackageManager.PERMISSION_GRANTED) {
+            intentFilter = new IntentFilter();
+            intentFilter.addAction("android.provider.Telephony.SMS_RECEIVED");
+            this.registerReceiver(br, intentFilter);
+        }
+    }
+
+    // mengambil object item
+    Item getItemData(int itemId) {
+        for (Item i : database.fetchItems()) {
+            if (i.getId() == itemId) {
+                return i;
+            }
+        }
+        return null;
+    }
+
+    // mengambil object user
+    User getUserData(int userId) {
+        for (User u : database.fetchUsers()) {
+            if (u.getId() == userId) {
+                return u;
+            }
+        }
+        return null;
     }
 
     @Override
@@ -142,6 +195,7 @@ public class BuyItemActivity extends AppCompatActivity {
 
                         String smsMsg = "Transaction success!";
 
+                        // check utk sms permission
                         if (ContextCompat.checkSelfPermission(BuyItemActivity.this, Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED) {
                             Toast.makeText(BuyItemActivity.this, "Please wait for SMS confirmation...", Toast.LENGTH_LONG).show();
                             SmsManager.getDefault().sendTextMessage("5554", null, smsMsg, null, null);
@@ -180,27 +234,7 @@ public class BuyItemActivity extends AppCompatActivity {
         });
     }
 
-    // mengambil object item
-    Item getItemData(int itemId) {
-        for (Item i : database.fetchItems()) {
-            if (i.getId() == itemId) {
-                return i;
-            }
-        }
-        return null;
-    }
-
-    // mengambil object user
-    User getUserData(int userId) {
-        for (User u : database.fetchUsers()) {
-            if (u.getId() == userId) {
-                return u;
-            }
-        }
-        return null;
-    }
-
     private void requestSmsPermission() {
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SEND_SMS}, 0);
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECEIVE_SMS, Manifest.permission.SEND_SMS}, 0);
     }
 }
