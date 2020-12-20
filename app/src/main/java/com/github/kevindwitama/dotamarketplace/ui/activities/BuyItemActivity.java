@@ -31,9 +31,9 @@ import java.util.Date;
 /**
  * Final Project ISYS6203 Mobile Application Development
  * Lab BL11 / XB11
- * <p>
+ *
  * Dota Marketplace
- * <p>
+ *
  * Contributed by
  * 2201825535 - Kevin Dwitama Putra
  * 2201836330 - Natasha Anugrah
@@ -42,7 +42,6 @@ import java.util.Date;
 public class BuyItemActivity extends AppCompatActivity {
 
     TextView txtVwItemName, txtVwItemPrice, txtVwItemStock;
-    // txtVwCurrentBal;
     ImageView imgProduct;
     EditText fldQty;
     Button btnSellerLoc, btnCheckout;
@@ -58,8 +57,11 @@ public class BuyItemActivity extends AppCompatActivity {
     int userId;
     float userBalance;
 
+    IntentFilter intentFilter;
+
     final DBHelper database = new DBHelper(this);
 
+    // buat receive sms
     private final BroadcastReceiver br = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -95,8 +97,6 @@ public class BuyItemActivity extends AppCompatActivity {
         userBalance = user.getBalance();
     }
 
-    IntentFilter intentFilter;
-
     void init() {
         txtVwItemName = findViewById(R.id.txtVwItemName);
         txtVwItemPrice = findViewById(R.id.txtVwItemPrice);
@@ -116,7 +116,7 @@ public class BuyItemActivity extends AppCompatActivity {
         }
     }
 
-    // mengambil object item
+    // mengambil data item
     Item getItemData(int itemId) {
         for (Item i : database.fetchItems()) {
             if (i.getId() == itemId) {
@@ -126,7 +126,7 @@ public class BuyItemActivity extends AppCompatActivity {
         return null;
     }
 
-    // mengambil object user
+    // mengambil data user
     User getUserData(int userId) {
         for (User u : database.fetchUsers()) {
             if (u.getId() == userId) {
@@ -150,6 +150,7 @@ public class BuyItemActivity extends AppCompatActivity {
         txtVwItemStock.setText("Stock: " + itemStock);
         imgProduct.setImageResource(imgId);
 
+        // buka menu seller location
         btnSellerLoc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -159,6 +160,7 @@ public class BuyItemActivity extends AppCompatActivity {
                 double latitude = item.getLatitude();
                 double longitude = item.getLongitude();
 
+                // kirim data lat n long ke menu seller loc
                 bundle.putDouble("lat", latitude);
                 bundle.putDouble("long", longitude);
                 intent.putExtras(bundle);
@@ -186,10 +188,12 @@ public class BuyItemActivity extends AppCompatActivity {
                     } else if (userBalance < (itemPrice * itemQty)) {
                         Toast.makeText(BuyItemActivity.this, "Not enough funds in your balance!", Toast.LENGTH_LONG).show();
                     } else {
+                        // siapin tanggal utk dimasukkin ke transaction
                         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
                         String date = dateFormat.format(new Date());
                         database.insertNewTransaction(userId, itemId, itemQty, date);
 
+                        // update stock di database
                         database.updateItemStock(item, itemStock - itemQty);
                         database.updateUserBalance(user, userBalance - (itemPrice * itemQty));
 
@@ -203,6 +207,7 @@ public class BuyItemActivity extends AppCompatActivity {
                             Toast.makeText(BuyItemActivity.this, smsMsg, Toast.LENGTH_SHORT).show();
                         }
 
+                        // balik ke main form abis checkout
                         Intent intent = new Intent(BuyItemActivity.this, MainFormActivity.class);
                         Bundle bundle = new Bundle();
 
@@ -234,6 +239,7 @@ public class BuyItemActivity extends AppCompatActivity {
         });
     }
 
+    // request permission buat sms
     private void requestSmsPermission() {
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECEIVE_SMS, Manifest.permission.SEND_SMS}, 0);
     }

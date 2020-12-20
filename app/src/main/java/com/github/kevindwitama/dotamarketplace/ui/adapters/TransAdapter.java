@@ -19,9 +19,9 @@ import java.util.ArrayList;
 /**
  * Final Project ISYS6203 Mobile Application Development
  * Lab BL11 / XB11
- * <p>
+ *
  * Dota Marketplace
- * <p>
+ *
  * Contributed by
  * 2201825535 - Kevin Dwitama Putra
  * 2201836330 - Natasha Anugrah
@@ -38,7 +38,7 @@ public class TransAdapter extends RecyclerView.Adapter<TransAdapter.TransViewHol
         this.mCtx = mCtx;
 
         database = new DBHelper(mCtx);
-        DataHelper.arrTrans = database.fetchTransactions(userId);
+        DataHelper.arrTrans = database.fetchTransactions(userId); // menampung transactions milik satu user
         arrTrans = DataHelper.arrTrans;
     }
 

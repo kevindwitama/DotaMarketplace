@@ -17,9 +17,9 @@ import java.util.ArrayList;
 /**
  * Final Project ISYS6203 Mobile Application Development
  * Lab BL11 / XB11
- * <p>
+ *
  * Dota Marketplace
- * <p>
+ *
  * Contributed by
  * 2201825535 - Kevin Dwitama Putra
  * 2201836330 - Natasha Anugrah
@@ -111,7 +111,7 @@ public class DBHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    // insert data user
+    // utk nge insert data user
     public void insertNewUser(String username, String fullName, String password, String phoneNum, boolean gender, float balance) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
@@ -126,7 +126,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.insert(TABLE_USERS, null, cv);
     }
 
-    // insert data item
+    // utk nge insert data item
     public void insertNewItem(String name, int price, int stock, double latitude, double longitude) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
@@ -140,7 +140,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.insert(TABLE_ITEMS, null, cv);
     }
 
-    // insert data transaction
+    // utk nge insert data transaction
     public void insertNewTransaction(int userId, int itemId, int qty, String date) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
@@ -215,7 +215,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return transactions;
     }
 
-    // return single user berdasarkan id
+    // return satu user berdasarkan id
     public User getUser(int userId) {
         for (User u : this.fetchUsers()) {
             if (u.getId() == userId) {
@@ -225,7 +225,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return null;
     }
 
-    // return single item berdasarkan id
+    // return satu item berdasarkan id
     public Item getItem(int itemId) {
         for (Item i : this.fetchItems()) {
             if (i.getId() == itemId) {

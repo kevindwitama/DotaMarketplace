@@ -15,9 +15,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 /**
  * Final Project ISYS6203 Mobile Application Development
  * Lab BL11 / XB11
- * <p>
+ *
  * Dota Marketplace
- * <p>
+ *
  * Contributed by
  * 2201825535 - Kevin Dwitama Putra
  * 2201836330 - Natasha Anugrah
@@ -42,6 +42,7 @@ public class SellerLocationActivity extends FragmentActivity implements OnMapRea
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        // set lokasi di google map berdasarkan lat n long
         sellerMaps = googleMap;
         LatLng sellerLoc = new LatLng(latitude, longitude);
         sellerMaps.addMarker(new MarkerOptions().position(sellerLoc).title("Seller Location"));
@@ -56,6 +57,6 @@ public class SellerLocationActivity extends FragmentActivity implements OnMapRea
 
     public void init() {
         mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.googleMaps);
+                .findFragmentById(R.id.googleMaps); // view gmap
     }
 }

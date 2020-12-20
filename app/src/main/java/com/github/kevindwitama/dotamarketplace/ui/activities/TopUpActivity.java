@@ -17,9 +17,9 @@ import com.github.kevindwitama.dotamarketplace.models.User;
 /**
  * Final Project ISYS6203 Mobile Application Development
  * Lab BL11 / XB11
- * <p>
+ *
  * Dota Marketplace
- * <p>
+ *
  * Contributed by
  * 2201825535 - Kevin Dwitama Putra
  * 2201836330 - Natasha Anugrah
@@ -84,7 +84,7 @@ public class TopUpActivity extends AppCompatActivity {
 
                         Toast.makeText(TopUpActivity.this, "Top Up success!", Toast.LENGTH_LONG).show();
 
-                        // intents utk membawa user id
+                        // kirim user id balik ke main form
                         Intent intent = new Intent(TopUpActivity.this, MainFormActivity.class);
                         Bundle bundle = new Bundle();
 

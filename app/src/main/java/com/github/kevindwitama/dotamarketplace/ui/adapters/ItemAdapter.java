@@ -24,9 +24,9 @@ import java.util.ArrayList;
 /**
  * Final Project ISYS6203 Mobile Application Development
  * Lab BL11 / XB11
- * <p>
+ *
  * Dota Marketplace
- * <p>
+ *
  * Contributed by
  * 2201825535 - Kevin Dwitama Putra
  * 2201836330 - Natasha Anugrah
@@ -59,13 +59,14 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
         Item item = arrItem.get(position);
         final int strItemId = item.getId();
 
-        final int imgId = getDrawableId(position);
+        final int imgId = getDrawableId(position); // ambil resource id untuk gambar buat item di posisi skrg
 
         holder.lblItemName.setText(item.getName());
         holder.lblItemPrice.setText("Rp " + item.getPrice());
         holder.lblItemStock.setText("Stock: " + item.getStock());
         holder.imageProducts.setImageResource(imgId);
 
+        // buka menu buy item
         holder.btnBuy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,6 +74,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
                 Intent intent = new Intent(context, BuyItemActivity.class);
                 Bundle bundle = new Bundle();
 
+                // kirim data ke menu buy item
                 bundle.putInt("itemId", strItemId);
                 bundle.putInt("userId", user.getId());
                 bundle.putInt("imgId", imgId);
@@ -84,6 +86,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
     }
 
     private int getDrawableId(int position) {
+        // ambil resource id untuk gambar buat item di posisi skrg
         switch (position) {
             case 0:
                 return R.drawable.foto1;

@@ -21,9 +21,9 @@ import com.github.kevindwitama.dotamarketplace.utils.UserUtils;
 /**
  * Final Project ISYS6203 Mobile Application Development
  * Lab BL11 / XB11
- * <p>
+ *
  * Dota Marketplace
- * <p>
+ *
  * Contributed by
  * 2201825535 - Kevin Dwitama Putra
  * 2201836330 - Natasha Anugrah
@@ -52,10 +52,12 @@ public class LoginFragment extends Fragment {
 
         view = inflater.inflate(R.layout.fragment_login, container, false);
         database = new DBHelper(this.getContext());
-        userUtils = new UserUtils();
+        userUtils = new UserUtils(); // fungsi2 yang di reuse
 
         init();
 
+        // validasi buat button login
+        // yg resetdb buat testing
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

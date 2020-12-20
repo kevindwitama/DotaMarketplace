@@ -24,9 +24,9 @@ import org.json.JSONObject;
 /**
  * Final Project ISYS6203 Mobile Application Development
  * Lab BL11 / XB11
- * <p>
+ *
  * Dota Marketplace
- * <p>
+ *
  * Contributed by
  * 2201825535 - Kevin Dwitama Putra
  * 2201836330 - Natasha Anugrah
@@ -43,16 +43,20 @@ public class MainActivity extends AppCompatActivity {
     DBHelper database;
 
     void initData() {
+        // load database
         database = new DBHelper(this);
         if (database.fetchUsers().isEmpty()) {
+            // create account admin default
             database.insertNewUser("admin", "admin", "123", "+62123", false, 1000000);
         }
         if (database.fetchItems().isEmpty()) {
+            // create json request buat download data items
             fetchJsonData();
         }
     }
 
     void init() {
+        // tabhost buat tab login/regis
         tabHost = findViewById(android.R.id.tabhost);
         tabHost.setup(this, getSupportFragmentManager(), android.R.id.tabcontent);
         tabHost.addTab(tabHost.newTabSpec("Login").setIndicator("Login", null), LoginFragment.class, null);
@@ -68,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
         init();
     }
 
+    // create json request buat download data items
     private void fetchJsonData() {
         String url = "https://raw.githubusercontent.com/acad600/JSONRepository/master/ISYS6203/O212-ISYS6203-RM01-00-DotaMarketplace.json";
         RequestQueue requestQueue = Volley.newRequestQueue(this);

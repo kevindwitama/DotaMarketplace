@@ -22,9 +22,9 @@ import com.github.kevindwitama.dotamarketplace.utils.UserUtils;
 /**
  * Final Project ISYS6203 Mobile Application Development
  * Lab BL11 / XB11
- * <p>
+ *
  * Dota Marketplace
- * <p>
+ *
  * Contributed by
  * 2201825535 - Kevin Dwitama Putra
  * 2201836330 - Natasha Anugrah
@@ -62,6 +62,7 @@ public class RegisterFragment extends Fragment {
         btnRegister = view.findViewById(R.id.btnRegister);
         chkTerms = view.findViewById(R.id.chkTerms);
 
+        // fungsi2 validasi button register
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,6 +72,7 @@ public class RegisterFragment extends Fragment {
                 String confPass = fldRePass.getText().toString().trim();
                 String phoneNum = fldPhoneNum.getText().toString().trim();
 
+                // validasiii smua gan
                 if (fullName.isEmpty()) {
                     Toast.makeText(getActivity(), "Full Name must be filled in!", Toast.LENGTH_SHORT).show();
                 } else if (!fullName.contains(" ")) {
@@ -102,6 +104,7 @@ public class RegisterFragment extends Fragment {
                 } else {
                     Toast.makeText(getActivity(), "Successfully registered!", Toast.LENGTH_LONG).show();
 
+                    // masukin user baru ke database
                     database.insertNewUser(username, fullName, password, phoneNum, isMale(rdGender), 0);
                     mainAct.getTabHost().setCurrentTab(0);
                 }
@@ -111,6 +114,7 @@ public class RegisterFragment extends Fragment {
         return view;
     }
 
+    // validasi klo password pny uppercase, special, numeric char
     private boolean validatePass(String password) {
         boolean containsUpper = false;
         boolean containsSpecial = false;
@@ -129,19 +133,21 @@ public class RegisterFragment extends Fragment {
         return containsUpper && containsSpecial && containsNum;
     }
 
+    // validasi klo no telp numeric
     private boolean validatePhoneNum(String phoneNum) {
         boolean containsLetter = false;
         int cntCharSpecials = 0;
-
 
         for (int i = 0; i < phoneNum.length(); i++) {
             if (Character.isLetter(phoneNum.charAt(i))) {
                 containsLetter = true;
             } else if (!Character.isLetterOrDigit(phoneNum.charAt(i))) {
+                // validasi klo ada chara special
                 cntCharSpecials++;
             }
         }
 
+        // no telp hrs mulai dgn '+', ga keitung sebagai chara special
         if (phoneNum.trim().charAt(0) == '+') {
             cntCharSpecials = cntCharSpecials - 1;
         }
@@ -149,6 +155,7 @@ public class RegisterFragment extends Fragment {
         return !containsLetter && cntCharSpecials == 0;
     }
 
+    // validasi gender, default female
     private boolean isMale(RadioGroup radioGroup) {
         return rdGender.getCheckedRadioButtonId() == 0;
     }

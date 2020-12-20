@@ -19,9 +19,9 @@ import com.github.kevindwitama.dotamarketplace.ui.adapters.ItemAdapter;
 /**
  * Final Project ISYS6203 Mobile Application Development
  * Lab BL11 / XB11
- * <p>
+ *
  * Dota Marketplace
- * <p>
+ *
  * Contributed by
  * 2201825535 - Kevin Dwitama Putra
  * 2201836330 - Natasha Anugrah
@@ -73,16 +73,18 @@ public class MainFormActivity extends AppCompatActivity {
         txtBalance.setText("Balance: Rp " + user.getBalance());
     }
 
+    // options menu yg nampung top up, history, log out
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
         getMenuInflater().inflate(R.menu.mainformmenu, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
+    // fungsi2 buat options menu
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.menu_top_up) {
+            // menu top up
             Intent intent = new Intent(this, TopUpActivity.class);
             Bundle bundle = new Bundle();
 
@@ -91,6 +93,7 @@ public class MainFormActivity extends AppCompatActivity {
 
             startActivity(intent);
         } else if (item.getItemId() == R.id.menu_history) {
+            // menu transaction history
             Intent intent = new Intent(this, HistoryActivity.class);
             Bundle bundle = new Bundle();
 
@@ -99,6 +102,7 @@ public class MainFormActivity extends AppCompatActivity {
 
             startActivity(intent);
         } else if (item.getItemId() == R.id.menu_log_out) {
+            // log out dan balik ke halaman login
             Intent intent = new Intent(this, MainActivity.class);
 
             startActivity(intent);

@@ -16,9 +16,9 @@ import com.github.kevindwitama.dotamarketplace.ui.adapters.TransAdapter;
 /**
  * Final Project ISYS6203 Mobile Application Development
  * Lab BL11 / XB11
- * <p>
+ *
  * Dota Marketplace
- * <p>
+ *
  * Contributed by
  * 2201825535 - Kevin Dwitama Putra
  * 2201836330 - Natasha Anugrah
@@ -41,7 +41,7 @@ public class HistoryActivity extends AppCompatActivity {
     void initData() {
         bundle = getIntent().getExtras();
 
-        userId = bundle.getInt("userId");
+        userId = bundle.getInt("userId"); // ambil user id current user buat cari transaction history
         database.getUser(userId);
     }
 
@@ -64,6 +64,7 @@ public class HistoryActivity extends AppCompatActivity {
         initData();
         init();
 
+        // clear transaction history buat current user
         btnClear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
