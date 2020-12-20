@@ -113,7 +113,7 @@ public class RegisterFragment extends Fragment {
     }
 
     // check klo user yg dicari udh regis ato blm
-    public boolean checkIfRegistered(String username, DBHelper database) {
+    private boolean checkIfRegistered(String username, DBHelper database) {
         for (User u : database.fetchUsers()) {
             if (u.getUsername().equals(username)) {
                 return true;

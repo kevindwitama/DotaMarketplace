@@ -90,7 +90,7 @@ public class LoginFragment extends Fragment {
     }
 
     // check klo user yg dicari udh regis ato blm dan jika password match ato ga
-    public boolean checkIfRegistered(String username, String password, DBHelper database) {
+    private boolean checkIfRegistered(String username, String password, DBHelper database) {
         for (User u : database.fetchUsers()) {
             if (u.getUsername().equals(username) && u.getPassword().equals(password)) {
                 return true;
@@ -100,7 +100,7 @@ public class LoginFragment extends Fragment {
     }
 
     // cari user di database berdasarkan username n password
-    public int lookupUserId(String username, DBHelper database) {
+    private int lookupUserId(String username, DBHelper database) {
         for (User u : database.fetchUsers()) {
             if (u.getUsername().equals(username)) {
                 return u.getId();
