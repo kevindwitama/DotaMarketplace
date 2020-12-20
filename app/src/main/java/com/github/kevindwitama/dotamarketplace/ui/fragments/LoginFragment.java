@@ -15,8 +15,8 @@ import androidx.fragment.app.Fragment;
 
 import com.github.kevindwitama.dotamarketplace.R;
 import com.github.kevindwitama.dotamarketplace.helpers.DBHelper;
+import com.github.kevindwitama.dotamarketplace.models.User;
 import com.github.kevindwitama.dotamarketplace.ui.activities.MainFormActivity;
-import com.github.kevindwitama.dotamarketplace.utils.UserUtils;
 
 /**
  * Final Project ISYS6203 Mobile Application Development
@@ -36,7 +36,6 @@ public class LoginFragment extends Fragment {
     View view;
 
     DBHelper database;
-    UserUtils userUtils;
 
     void init() {
         fldUsername = view.findViewById(R.id.txtLoginUsername);
@@ -52,7 +51,6 @@ public class LoginFragment extends Fragment {
 
         view = inflater.inflate(R.layout.fragment_login, container, false);
         database = new DBHelper(this.getContext());
-        userUtils = new UserUtils(); // fungsi2 yang di reuse
 
         init();
 
@@ -68,14 +66,14 @@ public class LoginFragment extends Fragment {
                     Toast.makeText(getActivity(), "Username must be filled in!", Toast.LENGTH_SHORT).show();
                 } else if (password.isEmpty()) {
                     Toast.makeText(getActivity(), "Password must be filled in!", Toast.LENGTH_SHORT).show();
-                } else if (!username.equals("resetdb") && !password.equals("resetdb") && !userUtils.checkIfRegistered(username, password, database)) {
-                    Toast.makeText(getActivity(), "Username and password not yet registered!", Toast.LENGTH_SHORT).show();
+                } else if (!username.equals("resetdb") && !password.equals("resetdb") && !checkIfRegistered(username, password, database)) {
+                    Toast.makeText(getActivity(), "Username not yet registered, or password is incorrect!", Toast.LENGTH_LONG).show();
                 } else {
                     if (!username.equals("resetdb") && !password.equals("resetdb")) {
                         Intent intent = new Intent(getActivity(), MainFormActivity.class);
                         Bundle bundle = new Bundle();
 
-                        bundle.putInt("userId", userUtils.lookupUserId(username, password, database));
+                        bundle.putInt("userId", lookupUserId(username, database));
                         intent.putExtras(bundle);
 
                         startActivity(intent);
@@ -89,5 +87,25 @@ public class LoginFragment extends Fragment {
         });
 
         return view;
+    }
+
+    // check klo user yg dicari udh regis ato blm dan jika password match ato ga
+    public boolean checkIfRegistered(String username, String password, DBHelper database) {
+        for (User u : database.fetchUsers()) {
+            if (u.getUsername().equals(username) && u.getPassword().equals(password)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // cari user di database berdasarkan username n password
+    public int lookupUserId(String username, DBHelper database) {
+        for (User u : database.fetchUsers()) {
+            if (u.getUsername().equals(username)) {
+                return u.getId();
+            }
+        }
+        return 0;
     }
 }

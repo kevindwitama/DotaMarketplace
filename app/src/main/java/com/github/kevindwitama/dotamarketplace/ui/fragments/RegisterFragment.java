@@ -16,8 +16,8 @@ import androidx.fragment.app.Fragment;
 
 import com.github.kevindwitama.dotamarketplace.R;
 import com.github.kevindwitama.dotamarketplace.helpers.DBHelper;
+import com.github.kevindwitama.dotamarketplace.models.User;
 import com.github.kevindwitama.dotamarketplace.ui.activities.MainActivity;
-import com.github.kevindwitama.dotamarketplace.utils.UserUtils;
 
 /**
  * Final Project ISYS6203 Mobile Application Development
@@ -40,7 +40,6 @@ public class RegisterFragment extends Fragment {
     MainActivity mainAct;
 
     DBHelper database;
-    UserUtils userUtils;
 
     @Nullable
     @Override
@@ -51,7 +50,6 @@ public class RegisterFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_register, container, false);
         mainAct = ((MainActivity) getActivity());
         database = new DBHelper(this.getContext());
-        userUtils = new UserUtils();
 
         fldFullname = view.findViewById(R.id.txtName);
         fldUsername = view.findViewById(R.id.txtRegUsername);
@@ -79,7 +77,7 @@ public class RegisterFragment extends Fragment {
                     Toast.makeText(getActivity(), "Full Name must consist of two words!", Toast.LENGTH_LONG).show();
                 } else if (username.isEmpty()) {
                     Toast.makeText(getActivity(), "Username must be filled in!", Toast.LENGTH_SHORT).show();
-                } else if (userUtils.checkIfRegistered(username, password, database)) {
+                } else if (checkIfRegistered(username, database)) {
                     Toast.makeText(getActivity(), "Username already registered!", Toast.LENGTH_SHORT).show();
                 } else if (username.length() < 5 || username.length() > 25) {
                     Toast.makeText(getActivity(), "Username must be between 5 and 25 characters!", Toast.LENGTH_LONG).show();
@@ -112,6 +110,16 @@ public class RegisterFragment extends Fragment {
         });
 
         return view;
+    }
+
+    // check klo user yg dicari udh regis ato blm
+    public boolean checkIfRegistered(String username, DBHelper database) {
+        for (User u : database.fetchUsers()) {
+            if (u.getUsername().equals(username)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     // validasi klo password pny uppercase, special, numeric char
