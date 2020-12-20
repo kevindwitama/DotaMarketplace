@@ -240,7 +240,11 @@ public class BuyItemActivity extends AppCompatActivity {
     }
 
     // request permission buat sms
+    // klo permission udh granted jgn ditanya lg
     private void requestSmsPermission() {
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECEIVE_SMS, Manifest.permission.SEND_SMS}, 0);
+        if (ContextCompat.checkSelfPermission(BuyItemActivity.this, Manifest.permission.RECEIVE_SMS) == PackageManager.PERMISSION_DENIED
+                || ContextCompat.checkSelfPermission(BuyItemActivity.this, Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_DENIED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECEIVE_SMS, Manifest.permission.SEND_SMS}, 0);
+        }
     }
 }
