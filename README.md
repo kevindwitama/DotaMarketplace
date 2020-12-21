@@ -1,10 +1,10 @@
 # DotaMarketplace
-Final project for ISYS6203 Mobile Application Development practicum.
+Final project for ISYS6203 Mobile Application Development practicum, based on the given case.
 
 ## Disclaimer
 
-This repository is for educational purposes only. Absolutely no warranty is provided.
+This repository is intended for educational purposes. Absolutely no warranty is provided.
 
-We are not affiliated with Dota 2 or Valve Corporation in any way.
+Dota Marketplace and its developers are not affiliated with Dota 2 or Valve Corporation in any way.
 
-All images are copyright of their respective owners.
+All images belong to their respective owners.
